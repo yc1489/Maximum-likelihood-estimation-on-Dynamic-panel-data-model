@@ -1,0 +1,1992 @@
+\documentclass[12pt,a4paper,hyperref]{article}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+	\definecolor{ultramarine}{rgb}{0.07, 0.04, 0.56}
+\usepackage{amsmath, natbib, latexsym, array, amssymb,longtable,float, graphicx, appendix,lscape}
+\usepackage[colorlinks,
+            linkcolor=ultramarine,
+            anchorcolor=green,
+            citecolor=darkblue
+            ]{hyperref}
+\usepackage[flushleft]{threeparttable}
+\usepackage[top=2.7cm, left=3cm, right=3cm, bottom=2.7cm]{geometry}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{pgfplotstable}
+\sisetup{
+  round-mode          = places, % Rounds numbers
+  round-precision     = 2, % to 2 places
+}
+
+\newenvironment{sequation}{\begin{equation}\tiny}{\end{equation}}
+\DeclareMathOperator*{\plim}{plim}
+\renewcommand{\floatpagefraction}{0.60}
+\renewcommand{\appendixpagename}{\Large Appendix}
+\setcounter{secnumdepth}{3}
+\begin{document}
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+%----------------------------------------------------------------------------------------
+%       HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{universityofyork.png}
+\end{figure}
+%\textsc{\LARGE University of York }\\[1.5cm] % Name of your university/college
+
+
+%----------------------------------------------------------------------------------------
+%       TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries An essay on maximum likelihood estimation methods for short dynamic panel data models}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+%----------------------------------------------------------------------------------------
+%       AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \normalsize
+\emph{Author:}\\
+Yan-Ting \textsc{Chen} \thanks{PhD Student, Department of Economics and Related Studies, The University of York. E-mail: yc1489@york.ac.uk} \thanks{I would like to thank Takashi Yamagata and Vanessa Smith for valuable suggestions, comments and coding support in this draft. All errors remain mine. } % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \normalsize
+\emph{Supervisor:} \\
+Professor Takashi \textsc{Yamagata} \\
+Dr. Vanessa \textsc{Smith}   % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%       DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+\section{An essay on maximum likelihood estimation methods for short dynamic panel data models}
+\subsection{Introduction}
+Panel data models is popular method in various research areas, such as: International Finance, Asset Pricing etc. Base on different time period and number of cross-sectional units, we often distinguish two type models: short panel data model and long panel data model. In short panel data model, the number of time periods is small and cross-sectional unit is large. Recently, there are many institutions have large data base. Therefore, the study of inference of large T and large N has risen. But the study for short panel still important because there is a difficult to get long time period data for some emperical topics. For example, if we want to research the stock price of startup institute, the influence of healthcare for child or the salary of young worker, it is hard to capture the long time period data. Apart from that, the initial value of these kinds of data are often not start from stationarity. Therefore, one of queries that we would like to study is whether initial condition is important for different estimators in short dynamic panel data models.      
+
+Although there are many estimation methods in panel AR(1) models that have been discuss in many years, there are many estimation methods be provided. In the other hand, there are some difficulty in estimation methods in different situations (eg. incidental parameters problem,weak moments problems etc.).
+ However, when time is fixed and cross secession unit tends to infinity, the estimation method on panel AR(1) model are difficult to get precession estimators.
+
+It is well know that the lest square estimator is inconsistent in dynamic panel data model with fixed effects when the number of time periods is fixed and cross secession unit tends to infinity. This bias arise because the incidental parameters problems. Therefore, there is a attraction to eliminate individual effects by using different transformed method in dynamic panel data with fixed effects when time period is short and cross secession unit is large. \citet{Nickell:1981} analysis the bias of within group estimators in dynamic panel data model with short T and large N. Even when subtract the time mean of model can avoid incidental parameters problems, the bias arise in circumstances the correlation between lag depend variable and mean of error term. The inconsistency of within group estimator is O(1/T), and within group estimator has downward bias.
+
+\citet{Anderson:1982} provided the consistent instrumental variable estimator by using lags as instruments in first difference model. Since this type of instrument is linear combination, then instrument variable estimator is asymptotically inefficient. \citet{Arellano:1991} use the value of dependent variables lagged least two periods are instruments in first differences. Because the number of moment restrictions large then parameter, \citet{Arellano:1991} apply the generalized method of moment to get more efficient estimator. However, if the error term is serially correlation, then these estimators might loss its consistent.   Base on suitable restrictions on initial conditions, \citet{Blundell:1998} extended the first difference generalize method of moment estimator by combine the lagged difference dependent variables and lagged levels dependent variables as instrument, we often call this estimator as system GMM estimator. Although GMM estimator is popular in empirical research, it  still have some difficulty should be solve. if the autoregressive parameter is approach to one,
+general method of moment estimator has the problem of weak instrument
+in linear dynamic panel data model.Especially,when the autoregressive
+parameter is equal to one,the GMM estimators
+are not consistent due to the instrument variables do not correlate with
+explanatory variables.\citet{Bun:2010} also argue that when the
+variance ratio is large the system GMM estimators face the weak instrument problem.
+
+Although there are various GMM type estimators be provided, likelihood base estimator still have advantages in efficiency.
+\citet{Hsiao:2002} provide the transformed likelihood method in dynamic panel data model. By taking first difference to eliminate individual effects, the incidental parameters problem can be solved. But transformed likelihood estimator is bimodel in some situation. \citet{Han:2013} indicate the domain of transformed
+likelihood beyond the stationary region has a large effect in finite sample.
+The extended likelihood is not the true likelihood.Meanwhile,the numerical
+maximization often not locate in the global maximum.
+\citet{Bun:2017} argue that transformed likelihood estimator is inconsistent in some situations because estimators can be get a solution of  cubic first-order conditions. Therefore, \citet{Bun:2017} find taking non negative variance constraint in transformed likelihood estimator perform better than the unconstrained transformed likelihood estimator.
+
+Although, there are many estimators have been provide, there is seldom research to overview the performance of these estimators in different situations. In empirical research we often have different kind of economics data. If we ignore the characteristic of data and using wrong estimation method, we might get the wrong results. Therefore, in this thesis, I would like to compare the performance of popular estimators, likelihood base estimators and GMM estimators, by Monte Carlo simulation.
+ The layout of this thesis is: Section 1.2 review some GMM estimators and ML estimators. Section 1.3 discusses finite sample performance comparison of estimators by using Monte Carlo simulation. Section 1.4 presents concluding remarks.
+
+
+\subsection{Review of some ML estimators for short dynamic panel data models with individual effects}
+\subsubsection{Analysis Nickel (1981) bias}
+If panel data models contain one lagged of dependent variable, we called this model as dynamic panel data model. Dynamic panel data model can be allowed including the adjustment mechanism. Therefore, in recent years, a lot of econometricians focus on estimation methods in dynamic panel data models. There are two part of estimation methods that are usually used in dynamic panel data model: generalized method of moment based estimators and likelihood based estimators. These estimators have different behaviours in different kinds of data.
+
+It is well known that the least square method of estimation suffer from serious bias in dynamic panel data model. \citet{Nickell:1981} analyze the bias of within group estimator for dynamic panel data model with fixed effect when number of individual $N$ is large and number of time $T$  is fixed.
+Consider the model:
+\begin{equation}
+y_{i,t}=\gamma y_{i,t-1}+\alpha_{i}+u_{i,t}, \,\, \left\vert\gamma \right\vert<1;\,\,  i=1,2,\ldots,N;\,\, t=1,2,\ldots,T, \label{1}
+\end{equation}
+where $\alpha_{i}$ is a fixed constant varying across individuals and cannot be observed, $u_{it}$ are independently, identically distributed with mean 0 and variance $\sigma^{2}_{u}$, and $0<\sigma^{2}_{u}<\infty$. The standard method to eliminate individual effects $\alpha_{i}$ is to subtract the time mean of equation itself.
+The model can be written as
+\begin{equation}
+y_{i,t}-y_{i.}=\gamma (y_{i,t-1}-y_{i.-1})+(u_{i,t}-u_{i.}).  \, \,  i=1,2,\ldots,N; t=1,2,\ldots,T, 
+\end{equation}
+
+where $y_{i.}=\dfrac{1}{T} \sum^{T}_{t=1} y_{i,t}, \,\, y_{i.-1}=\dfrac{1}{T} \sum^{T}_{t=1} y_{i,t-1}.$
+By using OLS estimation in t th cross-section, we have
+\begin{equation}
+\begin{split}
+\hat{\gamma}_{t}=&\sum^{N}_{i=1}(y_{i,t-1}-y_{i.-1})(y_{i,t}-y_{i.})/\sum^{N}_{i=1}(y_{i,t-1}-y_{i.-1})^{2}
+\Leftrightarrow  \\
+ \hat{\gamma}_{t}=& \gamma+ \sum^{N}_{i=1}(y_{i,t-1}-y_{i.-1})(u_{i,t}-u_{i.})/\sum^{N}_{i=1}(y_{i,t-1}-y_{i.-1})^{2}
+\end{split}
+\end{equation}
+
+By taking probability limits as $N$ tends to infinity, we have \footnote{See derivation in Appendix A at the end of the thesis.}
+\begin{equation}
+\begin{split}
+\plim_{N \rightarrow \infty} \left( \hat{\gamma}_{t}-\gamma\right) =&\frac{\plim_{N \rightarrow \infty}1/N \sum^{N}_{i=1}(y_{i,t-1}-y_{i.-1})(u_{i,t}-u_	{i.})}{\plim_{N \rightarrow \infty}1/N \sum^{N}_{i=1}(y_{i,t-1}-y_{i.-1})^{2}}
+\\
+= &
+-\dfrac{1+\gamma}{T-1}\left(1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{\left(1-\gamma^{T}\right)}{\left( 1-\gamma\right)}   \right)\times \\
+&\left\lbrace 1-\dfrac{2\gamma}{\left(1-\gamma \right) \left(T-1 \right)}\left[ 1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{\left( 1-\gamma^{T}\right)}{\left(1-\gamma \right)}\right]    \right\rbrace^{-1} 
+\end{split}
+\end{equation}
+From above equation we can observe that $y_{i,t-1}$ is correlated with $u_{i.}$. Therefore, we can know the within group estimator is inconsistent and the bias is of order $T^{-1}$. Apart from that, within group estimator exhibits a downward bias when $\gamma>0$.  When $T$ tends to infinity, the within estimator is consistent.
+
+If $u_{it}$ are normally distributed, within estimators are also the ML estimators.
+Therefore, we know the maximum likelihood estimators are inconsistent in dynamic panel data model with fixed effect.
+
+\subsubsection{IV and GMM estimators}
+Due to the correlation between $y_{i,t-1}$ and $u_{i.}$, \citet{Anderson:1982} use first difference to eliminate $\alpha_{i}$. The equation is
+\begin{align}
+\Delta y_{i,t}=\gamma \Delta y_{i,t-1}+\Delta u_{i,t},\,\,\left\vert\gamma \right\vert<1; \,\, i=1,\ldots, N; t=2, \ldots, T, \label{five}
+\end{align}
+where $\Delta y_{i,t}=y_{i,t}-y_{i,t-1}$, $\Delta y_{i,t-1}=y_{i,t-1}-y_{i,t-2}$ and $\Delta u_{i,t}=u_{i,t}-u_{i,t-1}$.
+\citet{Anderson:1982} use $y_{i,t-2}$ or $\left(y_{i,t-2}-y_{i,t-3} \right)$ as instrument of variables because $y_{i,t-2}$ or $\left( y_{it-2}-y_{it-3} \right)$ correlate with regressors, $\left( y_{it-1}-y_{it-2}  \right)$, but not correlate with $\left(u_{i,t}-u_{i,t-1}   \right)$. Thus, when $y_{i,t-2}$ as instrument, the estimator is
+\begin{align}
+\tilde{\gamma}_{IV}=\dfrac{\sum^{N}_{i=1}\sum^{T}_{t=3}\left(y_{i,t}-y_{i,t-1} \right) y_{i,t-2} }{\sum^{N}_{i=1}\sum^{T}_{t=2}\left( y_{i,t-1}-y_{i,t-2}   \right)y_{i,t-2}}.
+\end{align}
+And when  $\left( y_{i,t-2}-y_{i,t-3} \right)$ is instrument, the estimator is
+\begin{align}
+\hat{\gamma}_{IV}=\dfrac{\sum^{N}_{i=1}\sum^{T}_{t=3}\left(y_{i,t}-y_{i,t-1} \right) \left( y_{i,t-2}-y_{i,t-3}\right) }{\sum^{N}_{i=1}\sum^{T}_{t=2}\left( y_{i,t-1}-y_{i,t-2} \right)\left( y_{i,t-2}-y_{i,t-3}\right)}.
+\end{align}
+However, \citet{Arellano:1989} show that when $T$ is small and $N$ is large, using $\left(y_{i,t-2}-y_{i,t-3} \right)$ as instruments, the variance of estimator is very large.
+
+\citet{Arellano:1991} provide GMM estimator that use the lags of each period as instruments in first difference model. By taking first difference, the model is the same as equation (\ref{five}). For $T \geq 2$, the model have d=$\dfrac{(T-1)T}{2}$ linear moment restrictions:
+\begin{align}
+E\left[ \left( u_{i,t}-u_{i,t-1} \right)y_{i,t-j} \right]=0, \,\, for \,\, j=2, \ldots, t-1; \,\, t=2,\ldots, T; \,\, i=1, \ldots, N. \label{8}
+\end{align}
+In this moment condition, we need to assume $u_{i,t}$ is serial independent.
+We can write this moment condition as vector form as $E\left( \boldsymbol{Z}_{i}^{'}\Delta \boldsymbol{u}_{i} \right)=0$, where $\Delta  \boldsymbol{u}_{i}=\left(  \Delta {u}_{i,2}, \Delta {u}_{i,3},\ldots, \Delta {u}_{i,T}  \right)^{'}$ and
+\begin{align}
+\boldsymbol{Z}_{i}=
+\begin{bmatrix}
+y_{i,0} & 0      & 0      & 0        &0          & 0         & \cdots    & 0      &\cdots  & 0 \\
+0      & y_{i,0} & y_{i,1} &  0       &   0       & 0         & \cdots    & 0      &\cdots  & 0 \\
+0      &  0     & 0      & y_{i,0}   & y_{i,1}    & y_{i,2}    & \cdots    & 0      &\cdots  & 0 \\
+\vdots & \vdots & \vdots &   \vdots &    \vdots &    \vdots & \ddots    &\vdots  &        & \vdots \\
+0      &  0     & 0      &  0       & 0         &0          & \cdots    & y_{i,0} & \cdots & y_{i,T-2}
+\end{bmatrix}.
+\end{align}
+ $\boldsymbol{Z}_{i}$ is a $(T-1)\times d$  block diagonal matrix and $\boldsymbol{Z}^{'}=\left( \boldsymbol{Z}^{'}_{1},\ldots, \boldsymbol{Z}^{'}_{N} \right)$ is a $d \times N(T-1)$ matrix. From above moment conditions, first difference GMM estimator can be express as
+\begin{align}
+\hat{\gamma}_{DIF-GMM-onestep}=\left[ \left(\Delta \boldsymbol{y}_{-1}^{'} \boldsymbol{Z} \right)\boldsymbol{V}^{-1}\left( \boldsymbol{Z}^{'}\Delta \boldsymbol{y}_{-1}  \right) \right]^{-1}\left(\Delta \boldsymbol{y}_{-1}^{'} \boldsymbol{Z} \right)\boldsymbol{V}^{-1}\left( \boldsymbol{Z}^{'}\Delta \boldsymbol{y}  \right),
+\end{align}
+where $\Delta \boldsymbol{y}=\left( \Delta \boldsymbol{y}^{'}_{1},\ldots, \Delta \boldsymbol{y}^{'}_{N}  \right)^{'}$, $\Delta \boldsymbol{y}_{-1}=\left( \Delta \boldsymbol{y}^{'}_{1,-1},\ldots, \Delta \boldsymbol{y}^{'}_{N,-1}  \right)^{'}$  and $\Delta \boldsymbol{y}_{i}=\left( \Delta y_{i,2},\ldots, \Delta y_{i,T}  \right)^{'}$, $\Delta \boldsymbol{y}_{i,-1}=\left( \Delta y_{i,1},\ldots, \Delta y_{i,T-1}  \right)^{'}$. When number of moment conditions greater than unknown parameters, GMM estimator depends on weighting matrix. Here, the optimal weight matrix $\boldsymbol{V}^{-1}$ is the inverse of the covariance matrix of $E \left( \boldsymbol{Z}_{i} \Delta \boldsymbol{u}_{i} \Delta \boldsymbol{u}_{i} ^{'} \boldsymbol{Z}_{i}^{'} \right)$. Under conditional and time series homoskedasticity, the weight matrix in one-step estimator is by setting
+\begin{align}
+\boldsymbol{\hat{V}}_{N}^{-1}= \left(N^{-1} \sum_{i=1}^{N} \boldsymbol{Z}_{i}^{'} \boldsymbol{DD}^{'}  \boldsymbol{Z}_{i} \right)^{-1},
+\end{align}
+where $\boldsymbol{D}$ is the $(T-1)\times T$ first difference matrix as
+\begin{align}
+\boldsymbol{D}=
+\begin{bmatrix}
+-1     & 1      &0       &\ldots   & 0 \\
+0      & -1     & 1      &\ldots   & 0  \\
+\vdots &\vdots  &\ddots  &         &  \\
+0      &  0     &        &  -1     & 1
+\end{bmatrix}.
+\end{align}
+ Again, we can use one-step estimator to get GMM residuals $\Delta \hat{\boldsymbol{u_{i}}}$. Using one-step GMM residual, we can find two-step GMM weight matrix
+\begin{align}
+\boldsymbol{\tilde{V}}_{N}^{-1}=\left(N^{-1}\sum_{i=1}^{N} \boldsymbol{Z}_{i}^{'} \boldsymbol{\Delta \hat{u_{i}}} \boldsymbol{\Delta \hat{u_{i}}^{'}} \boldsymbol{Z}_{i} \right)^{-1} .
+\end{align}
+ Then, we can get the two-step GMM estimator
+\begin{align}
+\hat{\gamma}_{DIF-GMM-twostep}=\left[ \left(\Delta \boldsymbol{y}_{-1}^{'} \boldsymbol{Z} \right)\boldsymbol{\tilde{V}}^{-1}\left( \boldsymbol{Z}^{'}\Delta \boldsymbol{y}_{-1}  \right) \right]^{-1}\left(\Delta \boldsymbol{y}_{-1}^{'} \boldsymbol{Z} \right)\boldsymbol{\tilde{V}}^{-1}\left( \boldsymbol{Z}^{'}\Delta \boldsymbol{y}  \right).
+\end{align}
+
+This linear GMM by \citet{Arellano:1991} is consistent in short panel data models. However, when autoregressive parameter is large or the ratio of variance $(\dfrac{\sigma_{\alpha}^{2}}{\sigma_{u}^{2}})$ increase, there is a large finite sample bias in linear GMM estimator. \citet{Arellano:1995} provide the efficient GMM estimator by using the lagged of first difference dependent variables as instruments in the level model\footnote{More detail can see Appendix \ref{B}}. Also, \citet{Arellano:1995} demonstrate the forward orthogonal transformation can be seen as first difference transformation to remove fixed effect plus a GLS transformation to eliminate the serial correlation.
+\citet{Blundell:1998} suggests using extra moment conditions
+\begin{align}
+E\left[\left( u_{i,t}+\alpha_{i}\right)\Delta y_{i,t-1} \right]=0, \,\, for\,\, t=2,3, \ldots, T. \label{15}
+\end{align}
+This moment condition rely on the covariance stationary initial value. Equation (\ref{1}) can be described as 
+\begin{align}
+\Delta y_{i,t}= \gamma^{t-1} \Delta y_{i,1}+ \sum^{t-2}_{s=0}\gamma^{s}\Delta u_{i,t-s} \,\, for \,\, t=2,\ldots, T.
+\end{align}
+If we want to guarantee $E\left(\Delta y_{i,t} \alpha_{i} \right)$=0, we need to assume $E\left(\Delta y_{i,1} \alpha_{i} \right)$ =0. Therefore, we need to restrict $E\left[\left(y_{i,0}-\alpha_{i}/(1-\gamma) \right)\alpha_{i} \right]=0$ which mean 
+initial condition should be under stationarity.  
+
+  Combing moment conditions $\left(\ref{8}\right)$ and $\left(\ref{15}\right)$, the moment restrictions can be written as vector form
+  \begin{align}
+  E\left( \boldsymbol{Z}_{i}^{\ast'} \boldsymbol{u}_{i}^{\ast} \right)=0, \,\,for\,\, i=1,\ldots, N, \label{16}
+  \end{align}
+ where $\boldsymbol{u}_{i}^{\ast} =(\Delta \boldsymbol{u}_{i}, \boldsymbol{u}_{i}+\alpha_{i} \boldsymbol{\iota}_{T-1})$ is the $2(T-1)$ vector , $\boldsymbol{u}_{i}=\left(u_{i,2},\ldots, u_{i,T}  \right)^{'}$, $\boldsymbol{\iota}_{T-1}$ is the $(T-1)$ vector of ones and
+\begin{align}
+\boldsymbol{Z}_{i}^{\ast}=
+\begin{bmatrix}
+\boldsymbol{Z}_{i} & 0&  0 &\cdots & 0\\
+  0    & \Delta y_{i,1} & 0  & \cdots &  0      \\
+  0   & 0  &  \Delta y_{i,2} &    \cdots &    0  \\
+  \vdots  & \vdots  &\vdots &  \ddots &    0      \\
+   0     & 0  & 0& \cdots     &  \Delta y_{i,T-1}
+\end{bmatrix}.
+\end{align}
+Then use the moment restrictions $\left( \ref{16} \right)$, the GMM estimator is
+\begin{align}
+\hat{\gamma}_{SYS-GMM-onestep}=\left[ \left( \boldsymbol{y}_{-1}^{\ast '} \boldsymbol{Z}^{\ast} \right)\boldsymbol{\check{V}}^{-1}\left( \boldsymbol{Z}^{\ast'} \boldsymbol{y}^{\ast}_{-1}  \right) \right]^{-1}\left( \boldsymbol{y}_{-1}^{\ast'} \boldsymbol{Z}^{\ast} \right)\boldsymbol{\check{V}}^{-1}\left( \boldsymbol{Z}^{\ast '} \boldsymbol{y}^{\ast}  \right),
+\end{align}
+where $\boldsymbol{y}_{i}^{\ast'}=\left(\Delta \boldsymbol{y}_{i}^{'} \, \boldsymbol{y}_{i}^{'} \right)^{'}$,  $\boldsymbol{y}_{i,-1}^{\ast'}=\left(\Delta \boldsymbol{y}_{i,-1}^{'}\, \boldsymbol{y}_{i,-1}^{'} \right)^{'}$ and
+\begin{align}
+\boldsymbol{\check{V}}_{N}^{-1}=\left(N^{-1}\sum_{i=1}^{N} \boldsymbol{Z}_{i}^{\ast '} \boldsymbol{H}  \boldsymbol{Z}_{i}^{\ast} \right)^{-1} ,
+\end{align}
+ where $\boldsymbol{H}$ is $2(T-1)\times 2(T-1)$ weight matrix, as
+\begin{align}
+\tiny{
+\begin{bmatrix} 
+ 2 & -1 &\cdots &\cdots& \cdots & \cdots& 0\\
+ -1 & 2 & & & & & \vdots \\
+\vdots & & \ddots & & & & \vdots \\
+\vdots & & & 2 && & \vdots \\
+\vdots & & &  &1 & &\vdots \\
+\vdots & & &  & &\ddots &\vdots \\
+ 0 & \cdots & \cdots & \cdots& \cdots & \cdots & 1
+\end{bmatrix}}.
+\end{align} 
+
+We often call this estimator as system GMM estimator.
+
+Although there are many GMM estimation approach for dynamic panel data models (\citet{Arellano:1991}; \citet{Arellano:1995}; \citet{Ahn:1995}; and \citet{Blundell:1998} ) , GMM estimators have problems in some situation.
+When the autoregressive parameter is equal to one, the first differenced GMM estimators
+are not consistent due to the instrument variables do not correlate with
+explanatory variables\footnote{See Appendix \ref{B} for discussion the problem of Arellano and Bond type GMM estimator and the relationship between system GMM estimator and Arellano and Bond type GMM estimator.}.  \citet{Bun:2010} also argue that when the
+variance ratio is large the system general method of moment estimators face the weak instrument problem. Therefore, ML-based approach may be better than GMM approach in dynamic panel data model.
+
+
+\subsubsection{Analysis transformed likelihood estimators }
+\citet{Hsiao:2002} provide transformed likelihood estimation in dynamic panel data model with fixed effects. Transformed MLE is a popular estimation method in dynamic panel data model because first difference equation
+can transform nonstationarity data to stationarity. Apart from that, transformed likelihood method can eliminate the individual effects which cause incidental parameter problems in the estimation processes. In this thesis, we focus on the model without regressors. By taking the first difference in equation (\ref{1}), the model can be written as equation (\ref{five}).
+By continuous substitution of difference equation $\left(\ref{five}\right)$, we have
+\begin{align}
+\begin{split}
+\Delta y_{i,1}&= \gamma^{m} \Delta y_{i ,-m+1} +\sum^{m-1}_{j=0} \gamma^{j} \Delta u_{i , 1-j} \\
+&= \gamma^{m} \Delta y_{i ,-m+1}+\nu_{i,1}.
+\end{split}
+\end{align}
+We have two assumption for start point:
+
+$\left\vert \gamma \right\vert < 1$ and $m \rightarrow \infty$, the process has  been going on. Then  we have
+
+\begin{align}
+\begin{split}
+&E \left( \Delta y_{i,1} \right)=
+\lim_{m\rightarrow \infty}\gamma^{m} E\left( \Delta y_{i , -m+1}   \right)+\lim_{m \rightarrow \infty} E\left( \sum^{m-1}_{j=0}\gamma^{j} \Delta u_{i , 1-j} \right),  \\
+& Var \left( \Delta y_{i,1} \right)=E \left( \Delta y_{i,1} \right)= \dfrac{2 \sigma^{2}_{u}}{1+\gamma}, \\
+&Cov \left( \nu_{i,1}, \Delta u_{i,2}  \right)= -E \left(u_{i,1}^{2} \right)=- \sigma_{u}^{2} \,\,and \,\,Cov \left( \nu_{i,1}, \Delta u_{i,t} \right)=0, \\
+&for \,\,t=3,4,\ldots T; i=1,\ldots N.
+\end{split}
+\end{align}
+If the process  has started  from a  finite past  period, we  have
+\begin{align}
+\begin{split}
+& E \left( \Delta y_{i,1} \right)=b, \\
+ &Var \left( \Delta y_{i,1} \right)=c \sigma^{2}_{u}, where \, c > 0, Cov \left( \nu_{i,1}, \Delta u_{i,2} \right)= -\sigma^{2}_{u} \,and \, \\
+&Cov \left( \nu_{i,1}, \Delta u_{i,t} \right)=0 \,\, for \,t=3,4,\ldots, T, \, i=1,2,\ldots, N.
+\end{split}
+\end{align}
+Let $\Delta \boldsymbol{y}_{i}=\left( \Delta y_{i,1},\ldots, \Delta y_{i,T}  \right)^{'}$ and $\Delta \boldsymbol{u}_{i}^{\ast}= \left( \Delta y_{i,1}-b^{\ast}, \Delta u_{i,2},\ldots, \Delta u_{i,T}\right)^{'}$, where b=0 under infinite past starting point  and $b=b^{\ast}$ under finite past starting point.
+The covariance matrix of $\boldsymbol{u}_{i}^{\ast}$ is
+ \begin{align}
+   \boldsymbol{\Omega}= \sigma^{2}_{u}
+\begin{bmatrix}
+ \omega & -1     & 0      &   \cdots   & 0  \\
+ -1     & 2      & -1     &    \cdots  &  0   \\
+  0     & -1     &  2     &     \cdots &  0   \\
+\vdots  & \vdots & \vdots & \ddots     & -1 \\
+0       &  0     & 0      & -1         & 2
+\end{bmatrix}
+=\sigma^{2}_{u}  \boldsymbol{\Omega}^{*},
+\end{align}
+where $\omega=\left( 1/\sigma^{2}_{u} \right) Var\left(\Delta y_{i,1} \right)$.
+Assume $u_{i,t}$ is independent normal, the joint probability distribution function of $\Delta \boldsymbol{y}_{i}$ is
+\begin{align}
+\prod^{N}_{i=1} \left( 2 \pi \right)^{-T/2} \left\vert \boldsymbol{\Omega} \right\vert^{-1/2} exp\left\lbrace -\dfrac{1}{2} \Delta \boldsymbol{u}_{i}^{\ast '} \boldsymbol{\Omega}^{-1} \Delta \boldsymbol{u}^{\ast}_{i} \right\rbrace,
+\end{align}
+By maximum following likelihood function to find MLE of $\gamma$,
+\footnote{\citet{Han:2013} indicate the domain of transformed likelihood beyond the stationary region has a large effect in finite sample. The extended likelihood is not the true likelihood because the numerical maximization often not locate in the global maximum.}
+\begin{align}
+\log L= - \dfrac{NT}{2} \ln (2 \pi) -\dfrac{N}{2} \ln \left\vert \boldsymbol{\Omega} \right\vert-\dfrac{1}{2} \sum^{N}_{i=1} \Delta \boldsymbol{u}_{i}^{\ast '} \boldsymbol{\Omega}^{-1} \Delta \boldsymbol{u}_{i}^{\ast}.
+\end{align}
+
+\citet{Hayakawa:2015} extend transformed likelihood method to the model can have cross-sectionally heteroskedastic. The model can be written as equation (\ref{1}). By taking first difference, we can eliminate individual effect (see equation (\ref{20})). There is a different assumption about idiosyncratic shocks between \citet{Hsiao:2002} and \citet{Hayakawa:2015}. \citet{Hayakawa:2015} assume disturbances $u_{i,t}$ to vary across individual for $y_{i,t}$ and $x_{i,t}$, $E(u_{i,t})=0$  and $E(u^{2}_{i,t})=\sigma^{2}_{ui}$ such that $0<\sigma^{2}_{ui}<K<\infty$, for i=1,\ldots,N and t=1,2,\ldots,T. Then, it is easy seen that $Var(\Delta y_{i,1})=\sigma^{2}_{ui}\omega_{i}$ and $\omega_{i}=2/(1+\gamma)$
+ and transformed model can be written as
+\begin{equation}
+\Delta \boldsymbol{y}_{i}=\Delta \boldsymbol{W}_{i} \boldsymbol{\varphi}+ \boldsymbol{r}_{i},
+\end{equation}
+where $\boldsymbol{\varphi}=(b,\boldsymbol{\pi}, \gamma, \beta)^{'}$ and $\boldsymbol{r}_{i}=(\nu_{i,1}, \Delta u_{i,2},\ldots, \Delta u_{i,T})^{'}$ .
+
+The log likelihood function can be written as
+\begin{equation}
+\begin{split}
+\ell (\boldsymbol{\psi}_{N})=& -\frac{NT}{2}\ln (2\pi)-\frac{T}{2}\sum^{N}_{i=1}\ln \sigma^{2}_{ui}-\frac{1}{2} \sum^{N}_{i=1} \ln[1+T(\omega_{i}-1)]- \\
+&\frac{1}{2}\sum^{N}_{i=1}\frac{1}{\sigma^{2}_{ui}}(\Delta \boldsymbol{y}_{i}-\Delta \boldsymbol{W}_{i} \boldsymbol{\varphi})^{'} \boldsymbol{\Omega}(\omega_{i})^{-1}(\Delta \boldsymbol{y}_{i}-\Delta \boldsymbol{W}_{i} \boldsymbol{\varphi}), \\
+&where \,\, \boldsymbol{\psi}_{N}=((\boldsymbol{\varphi})^{'}, \omega_{1},\ldots, \omega_{N},\sigma^{2}_{u1},\ldots, \sigma^{2}_{uN})^{'}.
+\end{split}
+\end{equation}
+Therefore, transformed likelihood estimation encounters the incidental parameters problem when sample size N increase. \citet{Hayakawa:2015} use mis-specified model to provide that the relationship between the true value and pseudo true value. \citet{Hayakawa:2015} show that the qusi(pseudo) ML estimators of $\boldsymbol{\varphi}$  are consistent under mis- specification.
+\citet{Hsiao:2002} and \citet{Hayakawa:2015} also assume $x_{it}$ should be strictly exogenous. To allow model include weak exogenous regressors, panel VAR model can be consider.
+
+\subsubsection{Analysis Kruiniger (2008, 2013) maximum likelihood based estimation }
+\citet{Kruiniger:2008} also show first difference maximum likelihood estimator for the covariance stationary panel AR(1)/unit root model with fixed effects is consistent in large N and fixed T. However, these estimators are not attain the Cramer-Rao efficiency lower bound under large N and fixed T in this model. We change some setting in individual effect for the AR(1) model in equation (\ref{1}):
+\begin{equation}
+\begin{split}
+y_{i,t}=&\gamma y_{i,t-1}+\alpha_{i}+u_{i,t}, \\
+&\alpha_{i}=(1-\gamma)\eta_{i} \\
+& u_{i,t} \vert \alpha_{i}, y_{i,0}\sim N(0,\sigma^{2}_{u}) \,\, i,i,d., \,\, i=1, \ldots, N; t=1,\ldots, T. \label{29}
+\end{split}
+\end{equation}
+When $ \gamma=1 $, the model is unit root model. \citet{Kruiniger:2008} set $\alpha_{i}=(1-\gamma)\eta_{i}$ that can avoid individual effects from turning into individual trends when $\gamma=1$. 
+We have following assumption to check $\lbrace y_{i,t}\rbrace$ is covariance stationary:
+\begin{equation*}
+\begin{split}
+&\left\vert \gamma \right\vert < 1, \\
+&\left( y_{i,0}-\eta_{i} \right)\vert \eta_{i}\sim N \left( 0,\dfrac{\sigma^{2}_{u}}{1-\gamma^{2}} \right), \,\, i=1, \ldots, N.
+\end{split}
+\end{equation*}
+We can write the covariance stationary panel AR(1) model as
+\begin{equation}
+\left( \boldsymbol{y}_{i}-\eta_{i}\boldsymbol{\iota}_{T+1} \right)\vert \eta_{i} \sim N \left( 0, \sigma^{2}\boldsymbol{V}(\gamma) \right), \,\, i=1\ldots N,
+\end{equation}
+where $\boldsymbol{y_{i}}=\left( y_{i,0}, \ldots, y_{i,T} \right)$, $\boldsymbol{\iota}_{T+1}$ is $\left( T+1 \right)$ vector of ones and
+\begin{align}
+\boldsymbol{V} ( \gamma )=\dfrac{1}{1-\gamma^{2}}
+\begin{bmatrix}
+1 & \gamma & \gamma^{2} & . & . & . & \gamma^{T-1} \\
+\gamma & 1 & \gamma & . & . & . & \gamma^{T-2} \\
+\gamma^{2} & \gamma & 1 & . & • & • & . \\
+. & . & . & . & . & • & . \\
+. & . & • & . & . & . & . \\
+. & . & • & • & . & . & \gamma \\
+\gamma^{T-1} & \gamma^{T-2} & . & . & . & \gamma & 1
+\end{bmatrix}.
+\end{align}
+\citet{Kruiniger:2008} consider two ML estimators: Fixed effect ML estimator(FEMLE) and First difference ML estimator(FDMLE).
+The log-likelihood function for FEMLE:
+\begin{align}
+\begin{split}
+\sum^{N}_{i=1}L(\boldsymbol{y}_{i}; \gamma, \eta, \sigma^{2}_{u})=-\dfrac{NT}{2}\log(2\pi)-\dfrac{NT}{2}\log \sigma^{2}_{u}- \\
+\dfrac{N}{2} \log \left \vert \boldsymbol{V}(\gamma) \right \vert -\dfrac{1}{2 \sigma^{2}_{u}} \sum^{N}_{i=1}((\boldsymbol{y}_{i}-\eta_{i}\boldsymbol{\iota})^{'}\boldsymbol{V}^{-1}(\gamma)(\boldsymbol{y}_{i}-\eta_{i}\boldsymbol{\iota})).
+\end{split}
+\end{align}
+
+By maximizes this $\log-likelihood$ function, we can get FEML estimator $\left( \gamma, \eta_{i}, \sigma^{2}_{u} \right)$.
+However, due to the incidental parameters problem, FEML estimator is inconsistent when N is large.
+Therefore, we take first difference to eliminate individual effect $\eta_{i}$ before we use maximum likelihood estimation.
+The FDML estimator for $\left(\gamma, \sigma^{2}_{u} \right)$ globally maximizes
+\begin{align}
+\begin{split}
+\sum^{N}_{i=1} L (\boldsymbol{D}\boldsymbol{y}_{i}; \gamma, \sigma^{2}_{u})= -\dfrac{N(T)}{2} \log (2\pi)-\dfrac{N(T-1)}{2} \log \sigma^{2}_{u} \\
+\\
+-\dfrac{N}{2} \log \left\vert \boldsymbol{D}^{\ast}\boldsymbol{V}(\gamma)  \boldsymbol{D}^{\ast'} \right\vert-\dfrac{1}{2\sigma^{2}_{u}} \sum^{N}_{i=1}(\boldsymbol{y}^{'}_{i} \boldsymbol{D}^{'} (\boldsymbol{D}\boldsymbol{V}(\gamma)  \boldsymbol{D}^{'})^{-1} \boldsymbol{D}\boldsymbol{y}_{i}).
+\end{split}
+\end{align}
+
+When $-1< \gamma\leq 1$, the large N and fixed T limiting distribution of $\left( \hat{\gamma}_{uFDML}, \hat{\sigma}^{2}_{uFDML} \right)$
+\begin{align}
+&\sqrt{N}\begin{pmatrix}
+\hat{\gamma}_{FDML}-\gamma \\
+\hat{\sigma}^{2}_{uFDML}-\sigma^{2}_{u}
+\end{pmatrix}
+\stackrel{d}{\rightarrow} \\
+&N \left(
+\begin{pmatrix}
+0 \\
+0
+\end{pmatrix}
+,
+\begin{pmatrix}
+I_{\gamma\gamma,T} & -\dfrac{(T-1)}{(1+\gamma)(T(1-\gamma)+2\gamma)\sigma^{2}_{u}} \\
+-\dfrac{(T-1)}{(1+\gamma)(T(1-\gamma)+2\gamma)\sigma^{2}_{u}} & \dfrac{T-1}{2\sigma^{4}_{u}}
+\end{pmatrix}
+\right),
+\end{align}
+where
+\begin{align}
+\begin{split}
+I_{\gamma\gamma,T}&=\dfrac{-2(1+\gamma)(\gamma^{T-1}-2(T-2)\gamma^{2}+2T-3)(T(1-\gamma)+2\gamma)}{(1-\gamma^{2})^{2}(T(1-\gamma)+2\gamma)^{2}}+ \\
+&\dfrac{2(1+\gamma)^{2}((T-2)(\gamma-1)-1)^{2}+((T-2)(1-\gamma^{2})+1+\gamma^{2})(T(1-\gamma)+2\gamma)^{2}}{(1-\gamma^{2})^{2}(T(1-\gamma)+2\gamma)^{2}}.
+\end{split}
+\end{align}
+
+
+The first difference maximum likelihood estimators are consistent under large N and fixed T but FDMLE for $\gamma$ and $\sigma^{2}$ does not attain Cramer-Rao lower bound.
+
+\citet{Kruiniger:2013} shows that the Quasi-ML estimators in the panel AR(1) model with arbitrary initial conditions are consistent. But when panel AR(1) model with the constant variance ratio over time and $\gamma$ close to one the Quasi-ML estimators suffer from a weak moment conditions problem. \citet{Kruiniger:2013} provide the simulation results in various model setting. \citet{Kruiniger:2013} consider the model like equation (\ref{29}). $\boldsymbol{y}_{i} \equiv \left( y_{i,0},\ldots, y_{iT}  \right)$ are independent across the N individuals. The error term $u_{it}$ satisfy the following conditions:
+
+\begin{align}
+\begin{split}
+E(u_{it})&=0. \\
+E\vert u_{it} \vert^{h+\zeta}&<\infty , \\
+ for & \,\,i=1,\ldots, N \,\, ; \,\, t=0,\ldots, T,
+ \end{split}
+\end{align}
+where $\zeta>0$ is an small constant value.
+In fixed effect model, if we take first difference for data, we can making less assumption for individual effect and initial observation. \citet{Kruiniger:2013} do not use first difference to eliminate individual effect, but \citet{Kruiniger:2013} do the following assumption in fixed effect model:
+\begin{align}
+\begin{split}
+&v_{i,0}\equiv y_{i,0}-\eta_{i}, i=1,\ldots, N, \,\, are \,\,iid.\\
+&E(v_{i,0}^{2})=\sigma_{v0}^{2}. \\
+&E\vert v_{i,0} \vert^{h+\zeta}<\infty \,\, when \,\, \vert \gamma \vert<1, h=2 \,or\,4.
+\end{split}
+\end{align}
+
+\citet{Kruiniger:2013} consider three differently panel AR(1) models in fixed effect models as
+\begin{align*}
+\begin{split}
+&Basic:  \\ \\
+&E ( u_{i,t}u_{i,s} ) = 0 \,\, for \, i=1,\ldots, N \,\, and \,\, t \neq s. \\
+&E ( v_{i,0} u_{i,t} )= 0 \,\, for\, i=1,\ldots, N \,\,and\,\, t=0,\ldots, T,\, when \,\, \vert \gamma \vert <1.
+\\ \\
+&Mean \,\, Stationary: \\ \\
+&E ( y_{i,0}-\alpha_{i})=0 \,\, and \,\, E((y_{i,0}-\alpha_{i})\alpha_{i})=0, \\
+ &for \,\, i=1,\ldots, N.
+\\ \\
+&Time \,\, Series \,\, Homoskedasticity: \\ \\
+&\sigma^{2}_{i,t}=E(u^{2}_{i,t})=\sigma^{2}_{i}<\infty, \\
+&for \,\, i=1,\ldots, N \,\,;\,\, t=0,\ldots, T.
+\end{split}
+\end{align*}
+
+
+
+
+Rewrite the conditional model as
+\begin{align}
+\begin{split}
+\boldsymbol{y}_{i}-y_{i,0}\boldsymbol{\iota}=\gamma \left( \boldsymbol{y}_{i,-1}-y_{i,0}\boldsymbol{\iota}  \right)+\boldsymbol{e}_{i},\\
+\end{split}
+\end{align}
+where $\boldsymbol{e}_{i}=\left( \gamma-1 \right)v_{i0}\boldsymbol{\iota}+\boldsymbol{u}_{i}$ and  $\boldsymbol{\Phi}\left( f\right)=E(\boldsymbol{e}_{i}\boldsymbol{e}_{i}^{'})=\tilde{\sigma}^{2}_{v}\boldsymbol{\iota}\boldsymbol{\iota}^{'}+\boldsymbol{\Psi}$, where $\boldsymbol{\Psi}=plim_{N\rightarrow\infty}N^{-1}\sum^{N}_{i=1}\boldsymbol{u}_{i}\boldsymbol{u}_{i}^{'}$, $f$ is variance-covariance parameters. Then we define $\tilde{\Delta}\boldsymbol{y}_{i}=\boldsymbol{y}_{i}-y_{i,0}\boldsymbol{\iota}$ and $\tilde{\Delta}\boldsymbol{y}_{i,-1}=\boldsymbol{y}_{i,-1}-y_{i,0}\boldsymbol{\iota}$.
+We can write log likelihood function as
+\begin{align}
+\begin{split}
+logL \left(\rho,\,\boldsymbol{F}\left(\psi \right) \right)&=-\dfrac{1}{2}N(T)log2\pi-\dfrac{N}{2}log | \boldsymbol{F}\left(\psi \right) |- \\
+&-\dfrac{N}{2}\sum^{N}_{i=1}(\tilde{\Delta}\boldsymbol{y}_{i}-\rho\tilde{\Delta}\boldsymbol{y}_{i,-1})^{'}\boldsymbol{F}\left(\psi \right)^{-1}(\tilde{\Delta}\boldsymbol{y}_{i}-\rho\tilde{\Delta}\boldsymbol{y}_{i,-1}).
+\end{split}
+\end{align}
+
+Using Maximum likelihood method to estimate above equation, we can get FEQML estimator for $\gamma, \boldsymbol{\Phi}$.\footnote{See Appendix \ref{F} for detail of consistency of FEQMLE.} \citet{Kruiniger:2013} proof that $\gamma$ is consistent if and only if $T >2$ when $|\gamma|<1$, or $T>3$ when $\gamma=1$.
+If error term include heteroskedasticity, FEQML estimators can still consistent when the relevant moment of data exist. The similarity between transformed likelihood estimator and FEQML estimator is that the both depend on the initial value because it is conditional maximum likelihood estimator. If processes start from infinite period in the past, initial value has a negligible effect to the transformed likelihood estimator.
+
+In the simulation result, \citet{Kruiniger:2013} find that the bias and variance of the FEQML estimators do not have large change with $Var(\alpha_{i})/Var(u_{i,t})$ when $u_{it}$ is homogeneity and no autocorrelation and mean stationarity assumption is satisfied. However, when variance ratio $Var(\alpha_{i})/Var(u_{i,t})$ is high and mean stationarity assumption is not satisfied, the bias of FEQML estimators is high. Otherwise, when $\gamma$ close to one and the error term $u_{i,t}$ is homogeneity or arbitrary flat heteroskedasticity, FEQML estimators suffer from weak moments problem.
+
+\subsection{Finite sample performance comparison of estimators}
+In this section, we use Monte Carlo simulations to investigate the finite sample performance of TML(transformed likelihood estimator), FEQML(fixed effect quasi ML estimator), ABGMM(one-step first difference GMM estimators) and SYSGMM(one-step system GMM estimator) in difference scenarios. In purpose of this simulations, we would like to extend the scope of simulation setting to understand the behaviour of  these estimators when we  change 1. the distributions of the idiosyncratic errors, 2. variance ratio of individual effects to disturbance and 3. the distribution of initial conditions. In the simulation results, I would like to show bias and RMSE(root mean square errors) of estimators, size and power of test.
+\subsubsection{Monte Carlo design}
+In this Monte Carlo simulations, the $y_{i,t}$ are generated as
+\begin{align*}
+y_{i,t}&= \gamma y_{i,t-1}+\alpha_{i}+u_{i,t}, \,\, u_{i,t} \thicksim N(0,\sigma_{u}^{2}), \, \, t=-m+1,\ldots,0, 1,\ldots T; i=1,\ldots,N.\\
+\alpha_{i} &=(1-\gamma)\eta_{i}, \,\,y_{i,-m}=0.
+\end{align*}
+In this simulations setting, I consider two system, as \\
+(1)$|\gamma|<1$ and the process has stared from a long time period in the past, which mean m $\rightarrow \infty$ and
+\begin{align*}
+y_{i,0}=\dfrac{\alpha_{i}}{1-\gamma}+u_{i,0},  u_{i,0}\thicksim N(0,  \dfrac{1}{1-\gamma^{2}}), \,\, \alpha_{i} \thicksim N(0, \sigma_{\eta}^{2}).
+\end{align*}
+\\
+(2) the process has stared from a finite period in the past. In this simulation, m=1 and
+\begin{align*}
+y_{i,0} \approx \left( \dfrac{1-\gamma^{m}}{1-\gamma} \right) \alpha_{i}+\sum^{m-1}_{j=0}\gamma^{j}u_{i,-j}.
+\end{align*}
+
+Otherwise, We control the variance ratio of individual effects to disturbance
+\begin{align}
+\vartheta^{2}=\dfrac{N^{-1}\sum^{N}_{i=1}Var(\eta_{i})}{N^{-1}\sum^{N}_{i=1}Var(u_{i,t})}.
+\end{align}
+
+In the idiosyncratic error, we consider two designs: \\ \\
+\uppercase\expandafter{\romannumeral 1} Homogeneity and no autocorrelation of $u_{i,t}$: $E(u_{i}u_{i}^{'})=\sigma^{2}I$ and $\sigma^{2}_{i0}=\sigma^{2}=1$ \\ \\
+\uppercase\expandafter{\romannumeral 2} Cross-sectionally heteroskedasticity but no autocorrelation of $u_{i,t}$: $E(u_{i}u_{i}^{'})=diag(\sigma^{2}_{i})$ with $u_{it}\thicksim N(0, \sigma^{2}_{i})$, $\sigma^{2}_{i} \thicksim uniform[0.5, 1.5]$. Individual effects are generated as $\alpha_{i}=\lambda (\overline{u}_{i}+v_{i})$, where $v_{i} \thicksim N(0,1)$, $\overline{u}_{i}=\sum_{t=1}^{T}u_{i,t}/T$, $\lambda$ is set to control the variance ratio
+\begin{align}
+\vartheta^{2}=\dfrac{\lambda^{2}(T^{-1}\overline{\sigma}^{2}_{N}+1)}{\overline{\sigma}^{2}_{N}}\Rightarrow \lambda^{2}=\dfrac{\vartheta^{2}\overline{\sigma}^{2}_{N}}{T^{-1}\overline{\sigma}^{2}_{N}+1},
+\end{align}
+where $\overline{\sigma}^{2}_{N}=N^{-1} \sum^{N}_{i=1}Var(u_{i,t})$.
+
+In this simulation, I consider the transformed likelihood estimator (TML) in \citet{Hsiao:2002}, fixed effect quasi maximum likelihood estimator (FEQML) by \citet{Kruiniger:2013}, one-step first diferenced GMM estiamtor (DIF-GMM) by \citet{Arellano:1991} and one-step system GMM estimator (SYS-GMM) by \citet{Blundell:1998}.
+
+The sample size $T=\{5, 10 \}$, $N=\{50, 100, 500 \}$ and  and parameter, $\gamma=\{-0.8, -0.5, 0.5, 0.8\}$,  $\vartheta^{2}=\{1, 10\}$. The number of replications is 2500.  
+
+
+
+\subsubsection{Monte Carlo results}
+In the Monte Carlo simulation results, we can observed the behaviour of the one-step first difference GMM estimation , one step system GMM estimation , transformed likelihood estimation and fixed effect quasi maximum likelihood estimation in finite sample.
+
+
+From table \ref{table1} and table \ref{table2}, we can observed that the first difference GMM estimator does not be affected by the initial condition if variance ratio is small. 
+However, if variance ratio increase, the bias of the first difference GMM estimator that the process start from a long period in the past increase significantly\footnote{See the Appendix \ref{B}.}. Otherwise, we can observe from table \ref{table3} and table \ref{table4} that the bias of the first difference GMM estimator increase when coefficient of lag dependent variable increase.          
+From table \ref{table1}, we can observe that the initial condition is important for the system GMM estimator. When process under stationary assumption, the bias of system GMM estimator is small. . But the bias of system GMM estimator become large if the variance ratio increase.  
+For the performance of system GMM estimator, it seems better than first difference GMM estimator in almost all experiment when initial condition under stationary and small variance ratio.
+
+
+
+When variance ratio is small and process start from infinity period in the past, the performance of TML estimator is good. However, when variance ratio increase, the bias of TML estimator that the process is start form a long time have a slightly increase. 
+We also can see that initial condition affect the performance of transformed likelihood estimator, but the influence is not very large. Transformed likelihood estimator is base on maximum conditional likelihood function that is condition on the initial value. Therefore, initial value is important for this estimator.
+For the FEQML estimator, we can see that the initial condition does not affect the bias of estimator even if the variance ratio increase.  In almost all scenarios , fixed effect quasi maximum likelihood estimator have small bias. 
+
+
+
+From table \ref{table5} to table \ref{table8}, we show the bias and RMSE of estimators under heteroscedastic assumption. There are similar situations in bias and RMSE as model under homoskedastic error.
+
+From table 9 to table 12, we provided the size of test for the case of starting value start from infinity period and finite period in the past with homoscedastic and heteroskedasticity idiosyncratic error,respectively. 
+We can see that one-step first difference GMM estimator suffer size distortion in almost cases, but  one step system GMM estimator have a small size under small variance ratio.
+ When model under homoscedastic error, transformed likelihood estimator have reasonable size. However when model under heteroskedasticity idiosyncratic error, transformed likelihood estimator suffer size distortion\footnote{\citet{Hayakawa:2015} derive robust standard errors in models with cross-sectional heteroskedasticity.}.  We also see fixed effect quasi likelihood estimator suffer size distortion whenever model under heteroskedasticity error or homoskedastic error. 
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.5} \label{table1}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=5}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB &50&	-5.74&-8.71	&-16.65	&-0.58	&13.77&17.36&26.9	&4.1\\
+GMM&100&-2.67&  -4.36 &-9.22 &-0.33 & 9.34 & 11.98& 18.91&2.78 \\
+&500&-0.51&-0.95&-2.34	&-0.07&4.12&5.11&8.52&1.25 \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS &50& -1.04	&3.77&36.95&	50.59&10.48&11.52&38.63	&50.61\\
+GMM &100& -0.63&4.68&32.03&	50.71&7.48&9.19&34.24&50.72 \\
+ &500&-0.23	&5.58&13.85&50.78&3.56&6.68&17.34&50.78\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50&1.72&	2.91	&	6.41&-0.03&	13.57	&17&21.46&3.55\\
+ &100& 0.33 &1.25   & 5.75 & -0.04 & 8.66  &10.49   &19.37  & 2.54\\
+ &500 &-0.05	&0.03&	2.51&0	&3.31&3.6&	12.22&	1.13\\
+ \midrule \\
+ \cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ FE& 50&1.37	&1.10	&1.16	&0.09&	14.32&	14.86	&14.31	&4.26
+\\
+ QML&100&0.75&	0.70	&0.67	&-0.02	&10.61	&11.28	&10.43	&2.92
+\\
+& 500&0.17	&0.15&	0.01&	0.03&	4.40&	5.00	&4.36	&1.29
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: $y_{i,t}$ is generated as $y_{i,t}=\gamma y_{i,t-1}+(1-\gamma)\eta_{i}+u_{it}$, where $u_{i,t} \sim N\left(0, \sigma^{2}_{u} \right)$ with $\sigma^{2}_{u}=1$, for $t=-m+1,\ldots , 0, 1,\ldots, T; i=1,2,\ldots ,N$. In this experiment, we choose m=1,$\infty$.  All experiments are replicated 2500 times.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.5} \label{table2}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=10}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB &50 &-4.89&-5.82&-8.3&-1.06&8.12	&9.26&	11.9&3.2 \\
+ GMM&100 &-2.48  & -3.45& -4.70 &-0.58  &5.35 &6.23 &7.84 & 2.22\\
+ &500 &-0.54	&-0.66	&-1.08&	-0.1&2.22	&2.52&3.24&	0.96  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS& 50 &-1.69&	0.6&35.2&47.18&6.82	&6.84	&36	&47.21\\
+ GMM&100&-0.80&1.21 & 28.58& 46.78&4.57&4.89 & 29.49&46.79 \\
+ &500 &-0.21&2.45&12.25&47.38&	2.28&	3.36&	13.5&47.38 \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ TML&50 &-0.15&	-0.12&	1.63&	-0.06&5.25&5.4	&11.36&	2.63\\
+ &100& -0.12 & 0.06& 0.98 & -0.08 &3.69 &  3.90& 8.48 & 1.83 \\
+ &500 &-0.05 & 0.01 & -0.05	& -0.03	& 1.64	& 1.71	& 1.67 &0.82\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ FE&50 &-0.22	&-0.07	&-0.20&	-0.08	&5.71	&5.93	&5.70&	2.75
+ \\
+ QML&100&-0.08	&0.08	&-0.16&	0.00&	4.01&	4.14	&4.09	&1.86
+\\
+&500&-0.02	&0.03	&-0.01&	-0.02&1.81	&1.85&	1.85	&0.86
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note:See the note to the Table 1.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.8} \label{table3}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=5}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB &50&	-4.7&-21.17	&-35.25&-0.8&11.88&31.01&47.08&4.63	 \\
+GMM &100& -2.73 &-12.27&-25.66& -0.43 &8.00 & 21.12& 37.28&3.16 \\
+&500&-0.53&	-2.5&	-7.19&-0.05&3.62&8.57&15.1&1.36 \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ SYS&50&-2.46	&-0.70	&16.06	&29.36	&	9.77	&9.84	&17.56	&29.41
+\\
+  GMM& 100&-1.27	&0.97	&15.41&	29.55		&7.39&	7.08&	16.96&	29.57
+\\
+ &500&-0.25	&2.34	&12.18&	29.68	&	3.44&	3.99	&13.87&	29.68
+ \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50&3.27&2.1&6.77&0.04&15.36&16.53&18.82&3.94 \\
+ &100 & 2.26& 3.43&6.37 &0.02 & 11.65&14.18 & 16.79&2.73 \\
+ &500&0.57	&2.82&	4.57&0.04&4.56&9.77&13.05&1.22\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ FE &50&0.17&	-6.53	&0.48	&0.33	&13.83	&15.49	&14.02&5.19
+\\
+ QML & 100&1.09	&-4.55	&0.69	&-0.05	&11.67	&12.20&	11.34&	3.57
+ \\
+&500&0.67	&-1.01&	0.55	&-0.04&	6.25&	7.07&	5.97	&1.59
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: See the note to the Table 1.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.8}  \label{table4}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=10}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB &50 	&-4.79&-11.88&-21.85&-1.07	&7.25&14.75&25.43&	2.66 \\
+GMM &100&-2.42 & -6.64& -15.79& -0.49&4.51 &9.34 &19.26 &1.76 \\
+&500 &-0.56	&-1.42&-5.03&-0.09&1.77&3.26&7.56&0.75  \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ SYS&50 &-3.1	&-2.64&14.73&	22.81&	6.2	&	7.21	&15.42&22.83 \\
+  GMM&100 &-1.63 & -1.02& 13.31&22.05 & 3.98& 4.78& 13.94&22.06 \\
+ &500 &	-0.37&	1.13&8.52&	26.07	&1.89	&	2.65&9.4&23.13\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50 &0.46&1.79&3.33&	0.01&6.32&9.42&11.06&2.03\\
+&100 &0.11 &1.16&3.26 &-0.06 &3.96 & 7.26& 10.30&1.45 \\
+ &500 & -0.04&	0.05&0.66&	-0.01&1.63&2.5&4.74&0.63  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ FE&50 &0.08	&-0.88	&0.22	&-0.05&6.34	&6.98&	6.33&	2.25
+\\
+  QML&100 &-0.02	&-0.23	&-0.08	&-0.04&	4.24&	5.25	&4.39	&1.56
+ \\
+&500 &-0.09	&0.05	&0.00&	-0.02	&1.87	&2.79	&1.84	&0.71
+ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: See the note to the Table 1.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.5}  \label{table5}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=5}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB &50&-8.45&-9.99&-13.98&-14.78&17.37&19.89&	24.3&25.78\\
+GMM &100&-4.22&-4.97  & -7.83& -8.53& 11.71& 13.75&17.13 &17.71 \\
+&500& -0.67&-0.91&-2.1&-2.23&4.85&5.94	&7.61&8.45 \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ SYS&50	&-1.42	&-0.21	&2.16&	13.08&9.97&	10.70&12.58&20.67\\
+ GMM&100&-0.65&	0.53&1.09&13.85	&7.21&	7.77&9.23&19.85\\
+&500&-0.10&	1.01&0.09&12.25&3.27&3.92&4.06&	16.68\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ TML&50&2.3&3.38	&	4.69&	4.46&16.48&18.61&20.22	&19.98 \\
+  &100&1.19 & 2.13& 3.13& 4.10&11.16&13.13&15.56 & 17.49\\
+ &500&-0.05&0.18&0.8&	1.79&	3.74&4.46&	7.71&11.03 \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ FE &50&0.97&0.52&1.42	&0.84&14.15&14.73&14.48&13.99\\
+  QML&100&0.86&	1.17&0.68&0.78&	10.70&	11.69&	10.74&10.49\\
+ &500&	0.16&0.06&	0.15&0.17&4.41&5.13	&4.37&4.71\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: $y_{i,t}$ is generated as $y_{i,t}=\gamma y_{i,t-1}+(1-\gamma)\eta_{i}+u_{it}$, where $u_{i,t} \sim N\left(0, \sigma^{2}_{u_{i}} \right)$ with $\sigma^{2}_{u} \sim uniform\left[0.5,1.5 \right]$, for $t=-m+1,\ldots , 0, 1,\ldots, T; i=1,2,\ldots ,N$. In this experiment, we choose m=1,$\infty$.  All experiments are replicated 2500 times.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.5}  \label{table6}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=10}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ AB&50 &	-5.74&-6.65&-7.4&-8.97&9.18&10.15&11.06	&11.72  \\
+  GMM&100 &-2.96& -3.59&-4.27& -4.94& 5.88& 6.71&7.55&8.24\\
+&500 &	-0.57&	-0.81	&	-1.01&	-0.96&	2.38&2.64	&3.06&	3.25\\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS &50 &	-1.07	&-1.82	&5.16&3.85	&	7.55	&7.58&	11.43&10.54  \\
+ GMM&100 &-1.22 &-0.75 &0.12 &6.59 & 4.47& 4.41&5.05 & 11.46\\
+&500 &	0.68&	0.18&	4.35&	1.92	&2.74&	2.55&	6.32	&3.82  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ TML&50 &	-0.14&		-0.11	&-0.03	&0.3&	5.88&6.18	&	6.61&	8.18\\
+ &100 &-0.03 & -0.28&0.15 &0.04 &4.13 & 4.52& 4.39&5.56\\
+ &500 	&-0.06	&-0.06&	0.11&	0.04&1.9&	1.96&	1.87	&2.78  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ FE&50 & -0.11	&-0.08&	-0.37	&-0.24	&5.73	&6.20	&5.70	&5.93
+\\
+  QML&100 & 0.01	&-0.05	&-0.08&	-0.01	&4.14&	4.26&	4.09	&4.18
+\\
+ &500 &-0.04&	-0.02	&0.00	&-0.06	&1.84&	1.94&	1.82&	1.81
+  \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: See the note to the Table 5.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.8}   \label{table7}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=5}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB&50&-8.3&-32.32&	-24.13&	-34.09&	16.75&43.36&37.69&46.86\\
+GMM &100&-4.11 &-21.11 & -16.25& -27.06&10.55 & 32.57& 30.06&40.39 \\
+&500&-0.82&-5.01&-5.22&-12.95&3.99&12.89&15.18	&25.07 \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS &50&-2.95&	-2.27	&-0.86	&3.37	&	9.99&	10.09&	10.30&	11.68
+\\
+ GMM&100&-1.42	&-1.23	&-0.32&	4.82	&	7.13	&7.49&	7.85	&10.38
+\\
+&500&-0.36	&0.20	&-0.02&	5.57	&	3.30	&3.38&	3.62&	8.22
+\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ TML&50&	4.51	&1.94	&	5.08&	4&	17.03	&	17.31	&17.79&		18.55  \\
+ &100& 3.63 &3.32 &5.06 &5.00 &13.69 & 14.97&15.34 &15.80 \\
+ &500	&	0.71	&4.32&	2.25&	5.18&	5.65&11.58	&	9.09&13.31  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+  FE&50&0.26	&-6.33&	0.71	&-3.71&	13.92&	15.23&	13.79&	14.70
+  \\
+   QML&100 &1.05&	-4.83&	1.05	&-2.29	&11.61	&12.03	&11.38	&11.84
+ \\
+&500&0.53&	-1.26	&0.65&	-0.26&	6.17	&6.67	&6.04	&7.22
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: See the note to the Table 5.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Bias($\times$ 100) and RMSE($\times 100$) of $\gamma$ =0.8}  \label{table8}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=10}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{Bias($\times$ 100)} & \multicolumn{4}{c}{RMSE($\times$ 100)}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ AB&50 	&	-6.53		&-15.46&	-12.49	&-19.58	&9.14&	18.89&	16.94&	23.79 \\
+ GMM &100 & -3.41& -9.36& -7.67&-14.56 & 5.66&12.45 &11.69 &18.86\\
+&500 &	-0.73	&-2.17	&1.73&	-5.36&2.06&	4.3&3.87&8.55  \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+ SYS&50 &	-2.85	&-3.51	&0.5	&0.1	&	6.76	&7.56	&7.65&	7.69 \\
+ GMM&100 & -1.62 &-2.08 & -1.30& 1.84&3.79 & 5.09& 4.13&6.56\\
+ &500 &0.05&	-0.12&2.75&	2.3	&	2.13&2.33	&4.72	&4.33	\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50 	&	0.8		&1.89	&	2.38	&2.86	&	7.53&10.35	&	9.71&	11.05 \\
+&100& 0.14& 1.51&1.47 &2.80 & 4.70&8.15 & 7.35&9.79 \\
+ &500 & 	-0.03&		0.08		&	0.1		&1.47	&	1.83	&3.11	&2.26	&	6.92  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+FE& 50 	&	0.30&	-1.31	&0.20	&-0.38&	6.42	&6.76&	6.26	&6.82
+\\
+ QML&100 & 0.00	&-0.52	&0.13&	-0.18&	4.34&	5.21&	4.29&	5.11
+\\ 	
+ &500 	&	-0.02	&0.06	&0.02&	0.01	&1.83	&2.76&	1.85&	2.58
+ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: See the note to the Table 5.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Size (\%) of $\gamma$ of test} \label{table9}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=5}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{$H_{0}: \gamma=0.5$} & \multicolumn{4}{c}{$H_{0}: \gamma=0.8$}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB&50 & 20.16&	20.56	&26.96	&29.72	&25.64	&30.28	&37.2&	27.24\\
+GMM&100&17.64	&17.64	&21.68&	29.08	&25.36	&26.28	&32.36	&27.88\\ 
+ &500& 16.12&	13.48&	16.12&	29.08	&26.16	&19.76&	27.84	&26.32\\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS&50 &5.08	&4	&0.16	&96.76&	1.12	&1.56&	0	&2.96 \\
+ GMM&100& 3.96&	5.2	&0.36&	100&	0.72&	0.88	&0	&47.24\\  
+ &500 &4.04&	31.88&	0.12	&100&	0.72&	0.6	&0&	100\\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50 &	7	&11.76&	15.56&	5.04&	14.96	&22.16	&22.8&	4.72 \\
+&100&5.48	&6.36&	13.32&	4.84	&10.92&	23.28&	22.12	&4.96\\
+ &500 & 5.2	&5.08	&8.72&	5.52	&3.88	&19.92&	17.96&	4.52 \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+FE& 50 &52.8&60.68&	53.32&12.28&68.92&	88.24&	69.28&	19.24\\
+ QML&100 &55.04&59.08&53.24&11.76&69.76&89.56&68.48	&18.24\\ 	
+ &500 &53.32&60.8&52.28	&10.92&	70.16&90.6&	68.76&	16.8\\  
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: Note: $y_{i,t}$ is generated as $y_{i,t}=\gamma y_{i,t-1}+(1-\gamma)\eta_{i}+u_{it}$, where $u_{i,t} \sim N\left(0, \sigma^{2}_{u} \right)$ with $\sigma^{2}_{u}=1$, for $t=-m+1,\ldots , 0, 1,\ldots, T; i=1,2,\ldots ,N$, where m=$\infty$.   All experiments are replicated 2500 times.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Size (\%) of $\gamma$ of test} \label{table10}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=10}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{$H_{0}: \gamma=0.5$} & \multicolumn{4}{c}{$H_{0}: \gamma=0.8$}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB&50 &16.6&	19.24&	22.8	&24.68&	29.32&	38.48&	49.8	&27.16 \\
+GMM&100&14.04&	14.4&	17.24&	24.48	&23.84&	27.36	&41.12	&26.64 \\ 
+ &500& 11.16&	11.64&	13.56	&23.72	&19.76	&15.2&	25.52&	26.76 \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS&50 &3.4&	2.28&	1.32	&95.88	&0.44&	1.36	&0&	0\\
+ GMM&100& 3	&2&	2.64	&100	&0	&0.64&	0	&3.48\\  
+ &500 &2.64&	9.28&	1.36	&100&	0.04	&0.8&	0	&100\\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50 	&4.76&	5	&8&	5.08&	5.76&	17.88&	16.92&	5.08\\
+&100&5.2	&4.96	&6.8&	4.44&	4.08&	13.32	&16.04	&5.44\\
+ &500 & 4.6	&4.52	&4.84&	4.72&	5	&4.88	&6.96&	5.32  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+FE& 50 &41.68&45.96&41.76&16.4	&62.2&83.16	&65.8	&19.24
+\\
+ QML&100 &42&44.76&	43.12&13.92&64.04&	79.92&	63.84	&18.24
+ \\ 
+ &500 &41.8&44.04&42.2&15.2&62.76&82.48&	62.92&	16.8
+\\ 
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: See the note to the Table 9.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Size (\%) of $\gamma$ of test} \label{table11}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=5}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{$H_{0}: \gamma=0.5$} & \multicolumn{4}{c}{$H_{0}: \gamma=0.8$}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB&50 &25.36&	28.88&	29.84&	33.4	&30.84	&45.64&	38.64	&47 \\
+GMM&100&23	&25.72	&25.36	&28.8	&28.28	&38.44&	34.44&	41.92\\ 
+ &500& 19.68&	24.16	&22.04	&24.92&	24.88&	28.52	&28.84&	34.88\\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS&50 &3.88	&3.76&	2.64&	2.32	&1.84&	2.36&	0.64&	0.72\\
+ GMM&100& 3.4	&4.6&	2.84	&32.16	&0.6&	1.92	&0.36&	0.88\\  
+ &500 &12.76	&4.16	&58.44	&12.04&	1.88&	1.28&	0.84&	0.6\\
+
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50 	&11.68&	15.36	&16.72&15.52&	19.36	&24.2&	21.2	&25.24 \\
+&100&8.36	&10.08&	11.92&	13.64	&16.16&	25	&20.68&	22.88\\
+ &500 & 8&	8.6	&7.72&	10.12&	5.84&	28.6&	10.68	&24.56  \\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+FE& 50 &53.36&	63.4&53.36&	53.36&69.92&88.28&	69.24&81.16
+\\
+ QML&100 &52.72	&63.76&53.32&54.2&68.84	&90.4&	66.6	&83.28
+ \\ 
+ &500 &53.84&61.68&53.76&55.16&69.88&92.6&	69.68&	86.76
+ \\  
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: $y_{i,t}$ is generated as $y_{i,t}=\gamma y_{i,t-1}+(1-\gamma)\eta_{i}+u_{it}$, where $u_{i,t} \sim N\left(0, \sigma^{2}_{u_{i}} \right)$ with $\sigma^{2}_{u} \sim uniform\left[0.5,1.5 \right]$, for $t=-m+2,\ldots , 0, 1,\ldots, T; i=1,2,\ldots ,N$, where m=$\infty$.. In this experiment, we choose m=0,1,5,$\infty$.  All experiments are replicated 2500 times.
+              \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\begin{table}[H]
+\caption{Size (\%) of $\gamma$ of test} \label{table12}
+\centering
+\begin{tabular} {*{10}{c}}
+\toprule
+&N& \multicolumn{8}{c}{T=10}\\
+\cmidrule(lr){3-10}
+&& \multicolumn{4}{c}{$H_{0}: \gamma=0.5$} & \multicolumn{4}{c}{$H_{0}: \gamma=0.8$}\\
+  \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+&&  \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10} & \multicolumn{2}{c}{$\vartheta^{2}$=1}&\multicolumn{2}{c}{$\vartheta^{2}$=10}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& m & $\infty$ &1&$\infty$ &1&$\infty$ &1&$\infty$&1\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+AB&50 &25.52&	30.8	&29.32&	29.28	&35.44	&53.76	&44.04	&57.32\\
+GMM&100&21.24	&25.24&	24.08&	27.56	&28.92	&42.32	&35.48&	47.76\\ 
+ &500& 15.76&	18.72	&18.04&	20.28	&23.08	&25.68&	25.24	&33.68 \\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+SYS&50 &3.04&	3.52&	1.72	&1.48&	0.32&	0.76	&0.28&	0.24\\
+ GMM&100& 2.84&	2.28	&1.88&	20.44	&0	&1.04&	0.04	&0.88\\  
+ &500 &2.28&1.36	&22.2	&4.04	&0&	0.08&	1.04	&0.36\\
+\midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+TML &50 	&6.6&	7.88	&8.04	&9.96	&9.36&	22.6	&14	&21.84\\
+&100&7.64	&9.28&	6.92	&8.4&8	6.28&	17.4	&9.96&	18.48\\
+ &500 & 8.52	&8.8&	7.4	&8.52	&6.72	&8.76&	7.48	&13.48\\
+ \midrule \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+FE& 50 &42.6&	48.6&43	&44.44&62.28&85.48&	63.76&	81.16
+\\
+ QML&100 &43.12	&46.08&42.2&44.68&63.16	&85.24	&62.92&	83.28
+ \\ 
+ &500 &42.44&47.56&42.68&42.92	&62.96&	84.48&	64.92	&86.76
+\\ 
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+      \small
+      \item Note: See the note to the Table 11.
+    \end{tablenotes}
+\end{table}
+\end{center}
+
+
+
+
+
+
+
+
+
+\subsection{Concluding remarks}
+This paper compare the performance of different estimators for short dynamic panel data model, namely, first difference GMM estimator, system GMM estimator, transformed likelihood estimator and fixed effect. In Monte Carlo design, we change the variance ratio, initial condition and extend error to cross sectional heteroskedasticity.
+In Monte Carlo result, we have observe the bias of first difference GMM estimator increase when variance ratio increase and autoregressive coefficient, $\gamma$ approach to unit. Otherwise, when variance ratio increase, the bias of system GMM estimator increase. For the likelihood based estimators, initial condition, ratio of sample size and  autoregressive coefficient are important.
+When autoregressive coefficient going up and process start from finite period in the past, transformed likelihood estimator is not consistent in short T and large N. Fixed effect quasi likelihood estimator suffer size distortion in almost of all cases.
+\newpage
+
+\appendix
+\appendixpage
+\section{Bias of within estimator}
+\begin{equation}
+\begin{split}
+\plim_{N \rightarrow \infty} \left( \hat{\gamma}_{t}-\gamma\right) =&\frac{\plim_{N \rightarrow \infty}1/N \sum^{N}_{i=1}(y_{it-1}-y_{i.-1})(u_{it}-u_{i.})}{\plim_{N \rightarrow \infty}1/N \sum^{N}_{i=1}(y_{it-1}-y_{i.-1})^{2}}.
+\end{split}
+\end{equation}
+Suppose
+\begin{align*}
+ A_{t}=\plim_{N \rightarrow \infty}1/N \sum^{N}_{i=1}(y_{it-1}-y_{i.-1})(u_{it}-u_{i.})
+\end{align*}
+and by taking expectation across i, we have
+\begin{equation}
+\begin{split}
+A_{t}=& E_{i}(y_{it-1}-y_{i. -1})(u_{it}-u_{i.}) \\
+     =& E_{i}(y_{it-1}u_{it})-E_{i}(y_{it-1}u_{i.})-E_{i}(y_{i.-1}u_{it})+E(y_{i.-1}u_{i.}), \label{48}
+\end{split}
+\end{equation}
+where $E_{i}(y_{it-1}u_{it})=0$ By setting stationarity assumption in the equation (\ref{1}), we can know
+\begin{equation}
+\begin{split}
+y_{it}=\dfrac{\alpha}{(1-\gamma)}+\sum_{j=0}^{\infty} \gamma^{j}u_{it-j}. \label{49}
+\end{split}
+\end{equation}
+Then substitute (\ref{49}) to (\ref{48}), we have
+\begin{equation}
+\begin{split}
+A_{t}= \!&-E_{i} \left\lbrace (\sum^{\infty}_{j=0}u_{it-j-1}\gamma^{j})(\dfrac{1}{T}\sum^{T}_{s=1}u_{it})\}-E_{i} \{ \dfrac{u_{it}}{T} \sum^{T}_{s=1}\sum^{\infty}_{j=0}u_{is-j-1}\gamma^{j} \right\rbrace +  \!\\
+& E_{i}\{ ( \dfrac{1}{T}\sum^{T}_{s=1}\sum^{\infty}_{j=0}u_{it-j-1}\gamma^{j})(\dfrac{1}{T}\sum^{T}_{s=1}u_{it})\}.
+\end{split}
+\end{equation}
+And we know $E_{i}u_{it}=E_{i}u_{it}\alpha_{i}=0$ and $E_{i}u_{it}^{2}=\sigma_{u}^{2}$, then
+\begin{equation}
+\begin{split}
+A_{t}=\!&-\dfrac{1}{T} E_{i}\left\lbrace  \left( u_{it-1}+u_{it-2}\gamma^{1}+u_{it-3}\gamma^{2}+\ldots\right)\left(u_{i1}+\ldots+u_{it-1}+u_{it}+\ldots+u_{iT}\right) \right\rbrace -\!\\
+\! &\dfrac{1}{T} E_{i} \left\lbrace  u_{it}\sum^{T}_{s=1}\left( u_{is-1}\gamma^{0}+u_{is-2}\gamma^{1}+\ldots+u_{is-t-1}\gamma^{t}+\ldots+u_{is-T-1}\gamma^{T}+\ldots \right)  \right\rbrace  +\! \\
+\! & \dfrac{1}{T} E_{i}\left\lbrace  \left( \sum^{T}_{s=1}u_{is-1}\gamma^{0}+\sum^{T}_{s=1}u_{is-2}\gamma^{1}+\ldots+\sum^{T}_{s=1}u_{is-t-1}\gamma^{t}+\ldots
++\sum^{T}_{s=1}u_{is-T-1}\gamma^{T}+\ldots \right)
+\left(\dfrac{1}{T}\sum^{T}_{s=1}u_{is}\right) \right\rbrace  \!\\
+ =\!&-\dfrac{\sigma_{u}^{2}}{T}\dfrac{(1-\gamma^{t-1})}{1-\gamma}-\dfrac{\sigma^{2}_{u}}{T}\dfrac{(1-\gamma^{T-t})}{(1-\gamma)}+\dfrac{\sigma^{2}_{u}}{T} \left[ \dfrac{1}{1-\gamma}-\dfrac{1}{T}\dfrac{(1-\gamma^{T})}{(1-\gamma)^{2}}\right]\! \\
+ =\!&-\dfrac{\sigma_{u}^{2}}{T(1-\gamma)}\left\lbrace 1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{(1-\gamma^{T})}{(1-\gamma)} \! \right\rbrace.
+ \end{split}
+\end{equation}
+For $B_{t}$, we have
+\begin{equation}
+\begin{split}
+B_{t}=&E_{i}\left(y_{it-1}-y_{i.-1} \right)^{2}\\
+=& E_{i}\left( \sum_{j=0}^{\infty} \gamma^{j}u_{it-j-1}-\dfrac{1}{T}\sum^{T}_{s=1}\sum_{j=0}^{\infty}\gamma^{j}u_{is-j-1} \right)^{2} \\
+=&E_{i} \left(\sum^{\infty}_{j=0}\gamma^{j} u_{it-j-1} \right)^2-\dfrac{2}{T}E_{i}\left( \sum^{\infty}_{j=0}\gamma^{j}u_{it-j-1}\right)\left( \sum^{\infty}_{s=1}\sum^{\infty}_{j=0}\gamma^{j}u_{is-j-1}\right)+\dfrac{1}{T^{2}}E_{i}\left( \sum^{T}_{s=1}\sum^{\infty}_{j=0}u_{is-j-1} \right)^{2} \\
+=& E_{i} \left(\gamma^{o}u_{it-1}+\gamma^{1}u_{it-2}+\ldots \right)^{2}- \dfrac{2}{T}E_{i}\left(\gamma^{o}u_{it-1}+\gamma^{1}u_{it-2}+\ldots  \right)
+\left( \gamma^{0}\sum^{T}_{s=1}u_{is-1}+\gamma^{1}\sum^{T}_{s=1}u_{is-2}+\ldots  \right) \\
+=&\dfrac{\sigma^{2}_{u}}{1-\gamma^{2}}-\dfrac{2\sigma^{2}_{u}}{T(1-\gamma^{2})} \left\lbrace \dfrac{1-\gamma^{t}}{1-\gamma}+\gamma\dfrac{(1-\gamma^{T-t})}{1-\gamma} \right\rbrace +\dfrac{\sigma^{2}_{u}}{T(1-\gamma)^{2}}\left\lbrace 1-\dfrac{2\gamma(1-\gamma^{T})}{T\left(1-\gamma^{2}\right)} \right\rbrace \\
+=&\dfrac{\sigma^{2}_{u}}{1-\gamma^{2}}\left( 1-\dfrac{1}{T} \right)+ \dfrac{\sigma^{2}_{u}}{T(1-\gamma^{2})}\left[1-2\left(\dfrac{1-\gamma^{t}+\gamma-\gamma^{T-t+1}}{1-\gamma} \right)  \right]+ \\
+& \dfrac{2\gamma}{1-\gamma^{2}}\left[ \dfrac{\sigma^{2}_{u}\left(  1-\gamma^{2}\right)}{2T\left( 1-\gamma^{2} \right)}-\dfrac{\sigma^{2}_{u}\left( 1-\gamma^{T}  \right)}{T^{2}\left(1-\gamma  \right)^{2}}  \right] \\
+=&\dfrac{\sigma^{2}_{u}}{1-\gamma^{2}}\left( 1-\dfrac{1}{T}  \right)+ \\
+& \dfrac{2\gamma}{1-\gamma^{2}}\left\lbrace -\dfrac{\sigma^{2}_{u}}{T(1-\gamma)}\left( \dfrac{-(1-\gamma)}{2\gamma}+\dfrac{1-\gamma{t}+\gamma-\gamma^{T-t+1}}{\gamma}-\dfrac{(1-\gamma^{2})}{2\gamma(1-\gamma)}+\dfrac{(1-\gamma^{T})}{T(1-\gamma)}\right)  \right\rbrace \\
+=&\dfrac{\sigma^{2}_{u}}{1-\gamma^{2}}\left(1-\dfrac{1}{T}   \right)+\dfrac{2\gamma}{1-\gamma^{2}}A_{t}.
+\end{split}
+\end{equation}
+Then we can know the bias of within group estimator is
+\begin{equation}
+\begin{split}
+\plim_{N\rightarrow \infty}(\hat{\gamma_{t}}-\gamma )&=\dfrac{A_{t}}{B_{t}}=\left\lbrace \dfrac{\dfrac{\sigma^{2}_{u}}{1-\gamma^{2}}\left(1-\dfrac{1}{T} \right)+\dfrac{2\gamma}{1-\gamma^{2}}A_{t}}{A_{t}} \right\rbrace^{-1} \\
+&=\left\lbrace \dfrac{\dfrac{\sigma^{2}_{u}}{1-\gamma}\left( \dfrac{T-1}{T}\right)+\dfrac{2\gamma}{1-\gamma^{2}}-\dfrac{\sigma^{2}_{u}}{T\left( 1-\gamma\right)}\left[ 1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{\left(1-\gamma^{T}\right)}{\left(1-\gamma \right)}\right]}
+{-\dfrac{\sigma^{2}_{u}}{1-\gamma^{2}}\left[ 1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{\left(1-\gamma^{T} \right)}{\left( 1-\gamma\right)}\right] } \right\rbrace^{-1} \\
+&=\left\lbrace \dfrac{2\gamma}{1-\gamma^{2}}-\left[
+\dfrac{1+\gamma}{T-1} ( 1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T} \dfrac{1-\gamma^{T}}{1-\gamma} ) \right]^{-1}
+\right\rbrace^{-1} \\
+&=\left\lbrace \dfrac{2\gamma}{\left( 1-\gamma\right)\left( 1+\gamma\right)}-\dfrac{T-1}{1+\gamma}\left[ 1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{\left(1-\gamma^{T} \right)}{\left(1-\gamma \right)} \right]^{-1}     \right\rbrace^{-1} \\
+&= -\dfrac{1+\gamma}{T-1}\left(1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{\left(1-\gamma^{T}\right)}{\left( 1-\gamma\right)}   \right)\times \\
+&\left\lbrace 1-\dfrac{2\gamma}{\left(1-\gamma \right) \left(T-1 \right)}\left[ 1-\gamma^{t-1}-\gamma^{T-t}+\dfrac{1}{T}\dfrac{\left( 1-\gamma^{T}\right)}{\left(1-\gamma \right)}\right]    \right\rbrace^{-1} 
+\end{split}.
+\end{equation}
+\section{The relationship between first differenced GMM estimator and system GMM estimator and weak instruments problem} \label{B}
+
+\citet{Arellano:1995} suggest using lagged level of dependent variables as instruments in level model, the level model can be expressed as
+\begin{align}
+y_{it}=\gamma y_{i,t-1}+\alpha_{i}+u_{it}, \, i=1,\ldots, N;\,\,t=2,\ldots, T.
+\end{align}
+By writing as matrix form, the model can be expressed as
+\begin{align}
+\boldsymbol{y}^{l}_{i}=\gamma \boldsymbol{y}^{l}_{i,-1}+\alpha_{i}\iota+\boldsymbol{u}^{l}_{i},
+\end{align}
+where $\boldsymbol{y}^{l}_{i}=\left(y_{i2},\ldots, y_{iT} \right), \boldsymbol{y}^{l}_{i,-1}=\left(y_{i1},\ldots, y_{iT-1} \right)$ and $\boldsymbol{u}_{i}=\left(u_{i2},\ldots, u_{iT} \right)$. Therefore, we can get the moment conditions that can be written as
+\begin{align}
+E \left( \boldsymbol{Z}^{l'}_{i}  \boldsymbol{u}_{i} \right)=0,
+\end{align}
+where
+\begin{align}
+\begin{split}
+\boldsymbol{Z}^{l}_{i}=
+\begin{bmatrix}
+\Delta y_{i1} & 0 & \cdots & 0 \\
+0             & \Delta y_{i1} &\cdots & 0 \\
+\vdots &\vdots &\ddots & 0 \\
+0 & 0 &\cdots & \Delta y_{i, T-1}
+\end{bmatrix}.
+\end{split}
+\end{align}
+Then the Level GMM estimator for $\gamma$ is
+\begin{align}
+\hat{\gamma}^{l}_{lev-GMM}=\left[\boldsymbol{y}^{l'}_{-1} \boldsymbol{Z}^{l}\left(\boldsymbol{Z}^{l'}\boldsymbol{Z}^{l}  \right)^{-1}\boldsymbol{Z}^{l'}\boldsymbol{y}^{l}_{-1} \right]^{-1}\boldsymbol{y}^{l}_{-1}\boldsymbol{Z}^{l}\left(\boldsymbol{Z}^{l'}\boldsymbol{Z}^{l}   \right)^{-1}\boldsymbol{Z}^{l'}\boldsymbol{y}^{l},
+\end{align}
+where$\boldsymbol{y}^{l}, \boldsymbol{y}^{l}_{-1}$ and $\boldsymbol{Z}^{l}$ are stacked across individuals.
+By previous section, we can know system GMM estimators is weight sum of first difference GMM estimator and level GMM estimator. The denominator of system GMM estimator, $\hat{\gamma}_{SYS-GMM-onestep}$, can be decomposed as
+\begin{align}
+\begin{split}
+  \boldsymbol{y}_{-1}^{\ast '} \boldsymbol{Z}^{\ast} \left(\boldsymbol{Z}^{\ast'}\boldsymbol{Z}^{\ast}  \right)^{-1} \boldsymbol{Z}^{\ast'} \boldsymbol{y}^{\ast}_{-1}   =\boldsymbol{y}_{-1}^{l'}\boldsymbol{Z}^{l}\left( \boldsymbol{Z}^{l'}\boldsymbol{Z}^{l} \right)^{-1}\boldsymbol{Z}^{l'}\boldsymbol{y}_{-1}+\Delta \boldsymbol{y}_{-1}^{'}\boldsymbol{Z}\left( \boldsymbol{Z}^{'}\boldsymbol{Z} \right)^{-1}\boldsymbol{Z}^{'}\Delta \boldsymbol{y}_{-1}.
+\end{split}
+\end{align}
+We can set the weighting of SYS GMM estimator as,
+\begin{align}
+\hat{b}=\dfrac{\boldsymbol{y}_{-1}^{l'}\boldsymbol{Z}^{l}\left( \boldsymbol{Z}^{l'}\boldsymbol{Z}^{l} \right)^{-1}\boldsymbol{Z}^{l'}\boldsymbol{y}_{-1}}{\boldsymbol{y}_{-1}^{l'}\boldsymbol{Z}^{l}\left( \boldsymbol{Z}^{l'}\boldsymbol{Z}^{l} \right)^{-1}\boldsymbol{Z}^{l'}\boldsymbol{y}_{-1}+\Delta \boldsymbol{y}_{-1}^{'}\boldsymbol{Z}\left( \boldsymbol{Z}^{'}\boldsymbol{Z} \right)^{-1}\boldsymbol{Z}^{'}\Delta \boldsymbol{y}_{-1}}.
+\end{align}
+
+Therefore, System GMM estimator, $\hat{\gamma}_{SYS-GMM-onestep}$,can be written as
+\begin{align}
+\begin{split}
+\hat{\gamma}_{SYS-GMM-onestep}=\left(1- \hat{b}\right)\hat{\gamma}_{DIF-GMM-onestep}+ \hat{b} \hat{\gamma}^{l}_{lev-GMM}.
+\end{split}
+\end{align}
+
+From above, we can know the system GMM is weight sum of first different GMM estimator and level GMM estimator.
+
+\citet{Blundell:1998} demonstrate first differenced GMM suffer the weak instruments problem. For T=2, we have only one moment condition $E \left(y_{i0} \Delta u_{i2} \right)=0$. Therefore, the equation of the simple instruments variable can be written as
+\begin{align}
+\Delta y_{i1}=\theta y_{i0}+ e_{i}, \,\, for \,i=1,\ldots, N.
+\end{align}
+By the model $\left( \ref{1}\right)$, the above equation can be expressed as:
+\begin{align}
+\Delta y_{i1}=\left(\gamma-1\right) y_{i0}+\alpha_{i}+u_{i1}, \,\, for\, i=1,\ldots, N.
+\end{align}
+Since there is correlation between $y_{i0}$ and $\alpha_{i}$, the estimator $\left(\gamma-1 \right)$ is biased upward.
+The probability limit of $\hat{\theta}$ is
+\begin{align}
+plim\,\hat{\theta} = \dfrac{\left(1-\gamma\right)^{2}\left(1-\gamma^{2} \right)^{-1}}{\dfrac{\sigma^{2}_{\alpha}}{\sigma^{2}_{u}}+\left(1-\gamma\right)^{2}\left(1-\gamma^{2} \right)^{-1}} \left( \gamma-1 \right).
+\end{align}
+Therefore, we know that the first differenced GMM estimator suffer the weak instruments problems when variance ratio large and/or $\gamma$ approach to unit.
+
+\section{Hsiao et al. (2002) Transformed likelihood estimation (Dynamic panel with regressors)  }
+Consider the model include regressors, then the model can be written as
+\begin{equation}
+y_{i,t}=\gamma y_{i,t-1}+\beta  x_{it}+ \alpha_{i} + \mu_{it} , t=1,\ldots,T; i=1,\ldots, N.
+\end{equation}
+We assume $y_{i0}$ and $x_{i0}$ are available.
+ By taking first difference to eliminate individual effects, $\alpha_{i}$, the incidental parameters problem can be solve in dynamic panel data model with fixed effect. The first difference dynamic panel data model can be written as
+\begin{equation}
+\Delta y_{i,t}=\gamma \Delta y_{i,t-1}+ \beta \Delta x_{it}+\Delta \mu_{it} , t=2,3,\ldots ,T; i=1,\ldots, N
+\end{equation}
+where $\Delta y_{i,t}= y_{i,t}-y_{i,t-1}$.
+However, we cannot find $\Delta y_{i1} $ because $ y_{i,-1} $ is not observed. Therefore, starting from $\Delta y_{i,-m+1}$ and by continuous substitution, we can write $\Delta y_{i1} $ as
+\begin{equation}
+\Delta y_{i1}=\gamma^{m}\Delta y_{i,-m+1}+\beta \sum_{j=0}^{m-1}{\gamma^{j}\Delta x_{i,1-j}}+\sum_{j=0}^{m-1}{\gamma^{j}\Delta u_{i,1-j}} , i=1...N.
+\end{equation}
+Because $\Delta x_{i1-j}$ , j=1,2,\ldots are unobserved, the mean of $\Delta y_{i1}$
+conditional on $\Delta y_{i,-m+1}$ and $\Delta u_{i,1-j}$ for j=0,1,2,... as
+\begin{align}
+\eta_{i1}=& E(\Delta y_{i1}|\Delta y_{i,-m+1},\Delta x_{i1}, \Delta x_{i0},...) \\
+=& \gamma^{m}\Delta y_{i,-m+1}+\beta \sum_{j=0}^{m-1}{\gamma^{j}\Delta x_{i,1-j}} , i=1,2,...,N. \notag
+\end{align}
+
+Because $\eta_{i1}$ is a free parameter, we will encounter incidental parameter problem. To deal with this problem,  $\eta_{i1}$ should be a function of a finite number parameters.
+Meanwhile, $ x_{it} $ should be generated by
+\begin{equation}
+\begin{split}
+x_{it} =& u_{i}+gt+\sum_{j=0}^{\infty}{a_{j}\epsilon_{i,t-j}} , \, \, \, \sum_{j=0}^{\infty}{|a_{j}|}<\infty, \\
+or  \\
+\Delta x_{it} =& g+\sum_{j=0}^{\infty}{d_{j}\epsilon_{i,t-j}} , \, \, \, \sum_{j=0}^{\infty}{|d_{j}|}<\infty ,
+\end{split}
+\end{equation}
+where $\epsilon_{i,t}\sim i.i.d. (0,\sigma^{2}_{\epsilon})$.
+If the generating processes $ x_{it} $ follow random walks with drift and the drift parameters are different in different individual or $ x_{it} $ have different trend in different individual. Thus, the transformed likelihood method will confront the incidental parameters problem. we continue assume that
+\noindent $|\gamma|<1 $ and $ m \rightarrow \infty, $ or
+\noindent m is finite and $ E(\Delta y_{i,t-1}|\Delta x_{i1}, \Delta x_{i2}, ... , \Delta x_{iT}) $ is the same for all i.
+
+\citet{Hsiao:2002} distinguish two case: strictly exogenous and weakly exogenous. When the disturbance term $u_{it}$ is independent with current, lagged and future value of $x_{it}$, regressors are strictly exogenous.
+ When the disturbance term $u_{it}$ is independent with current and lagged value of $x_{it}$, regressors are weakly exogenous.
+
+For the model with strict exogenous regressors, the joint probability density function of $\Delta y_{i}$ condition on $\Delta x_{i}$ can be written as
+\begin{equation}
+\begin{split}
+f(\Delta \boldsymbol{y_{i}}|\Delta \boldsymbol{x_{i}})=&f(\Delta y_{iT}|\Delta y_{i,T-1},...,\Delta y_{i1}, \Delta \boldsymbol{x_{i}}) \\
+& f(\Delta y_{i,T-1}|\Delta y_{i,T-2},...,\Delta y_{i1}, \Delta \boldsymbol{x_{i}})  \\
+& f(\Delta y_{i,T-2}|\Delta y_{i,T-3},...,\Delta y_{i1}, \Delta x_{i})...  \\
+& f(\Delta y_{i,2}|\Delta y_{i1}, \Delta x_{i})f(\Delta y_{i1}|\Delta \boldsymbol{x_{i}}).
+\end{split}
+\end{equation}
+$f(\Delta \boldsymbol{y_{i}}|\Delta \boldsymbol{x_{i}})$
+can be derived from (6).
+$\eta_{i1}= E(\Delta y_{i1}|\Delta y_{i,-m+1},\Delta x_{i1}, \Delta x_{i0},...)$ can be rewritten as
+\begin{equation}
+ \eta_{i1}=b^{\ast}+\beta \Delta x_{i1}+\beta \Sigma^{m-1}_{j=1}\gamma^{j}E(\Delta x_{i,1-j}|\Delta x_{i})+q_{i1}.
+ \end{equation}
+Under assumption, $b^{\ast}=b=o$ and $q_{i1}=\eta_{i1}-E(\eta_{i1}|\Delta x_{i}).$
+From x generating process, we know
+\begin{equation}
+\Delta x_{it}=g+\sum^{\infty}_{j=0}d^{\ast}_{j}\varepsilon_{i,t-j}, \, \,  \sum^{\infty}_{j=0}|d^{\ast}_{j}|<\infty,
+\end{equation}
+If m is finite, we have
+\begin{equation}
+E(\Delta x_{i,1-j}|\Delta \boldsymbol{x_{i}})=b_{j}+\pi^{'}_{j}\Delta \boldsymbol{x_{i}}.
+\end{equation}
+Therefore, $f(\Delta y_{i1}|\Delta \boldsymbol{x_{i}})$ can be written as
+\begin{equation}
+\Delta y_{i1}=b^{\ast}+\boldsymbol{\pi}^{'}\Delta \boldsymbol{x}_{i}+\nu_{i1},
+\end{equation}
+where $\pi$ is a unknown $T\times1$ vector and $\nu_{i1}=q_{i1}+\sum^{m-1}_{j=0}\gamma^{j}\Delta u_{i,1-j}.$ \\
+
+\vspace{5mm} For model include weak exogenous regressors, $\Delta \boldsymbol{w}_{it}=(\Delta y_{it}, \Delta x_{it})$. The joint pdf of $(\Delta \boldsymbol{w}_{i1},\ldots, \Delta \boldsymbol{w}_{iT})$ is
+\begin{equation}
+f(\Delta \boldsymbol{w}_{iT}|\boldsymbol{\Im}_{i,T-1})f(\Delta \boldsymbol{w}_{i,T-1}|\boldsymbol{\Im}_{i,T-2}),...,f(\Delta \boldsymbol{w}_{i2}|\boldsymbol{\Im}_{i1})f(\Delta \boldsymbol{w}_{i1}|\boldsymbol{\Im}_{i0}),
+\end{equation}
+where $\boldsymbol{\Im}_{it}=(\Delta \boldsymbol{w}_{it},\Delta \boldsymbol{w}_{i,t-1},...,\Delta \boldsymbol{w}_{i1}), t=1,2,...,T-1$ , and $\boldsymbol{\Im}_{i0}$ normalized at unity.
+Thus, the likelihood function can wrote as
+\begin{equation}
+\prod^{N}_{i=1} \prod^{T}_{t=1} f(\Delta y_{it},\mid \boldsymbol{\Im}_{i,t-1}, \Delta x_{it}).
+\end{equation}
+To derive $f(\Delta y_{i1}|\boldsymbol{\Im}_{i,0} \Delta x_{i1})$, \citet{Hsiao:2002} use (7) to get
+\begin{equation}
+E(\Delta y_{i1}|\Delta x_{i1})=b^{\ast}+\beta \sum _{j=0}^{m-1} \gamma^{j} E(\Delta x_{i,1-j}|\Delta x_{i1})+ \sum _{j=0}^{m-1} \gamma^{j}E(\Delta u_{i,1-j}|\Delta x_{i1}).
+\end{equation}
+By using projection, $E(\Delta x_{i,1-j})=\psi _{j0}+\psi _{j1} \Delta x_{i1},$ and $E(\Delta u_{i,1-j})=\varphi_{j0}+\varphi_{j1} \Delta x_{i1}.$ The $\psi _{j0}, \psi _{j1}, \varphi_{j0}, \varphi_{j1}$ can derived from the parameters of the joint probability density function. Under above result, $E(\Delta y_{i1}|\Delta x_{i1})=\delta_{j0}+ \delta \Delta x_{i1},$ where $\delta_{j0}, \delta_{j1}$ can be treat as free parameters.
+Thus,
+\begin{equation}
+\Delta y_{i1}= \delta_{0}+\delta_{1} \Delta x_{i1}+\xi_{i1} ,
+\end{equation}
+where
+\begin{equation}
+\xi_{i1} = \beta \sum ^{m-1}_{j=1} \gamma^{j}(\Delta x_{i,1-j}-\psi_{j0}-\psi_{j1}\Delta x_{i1})+\sum^{m-1}_{j=0}\gamma^{j}(\Delta u_{i,1-j}-\varphi_{j0}-\varphi_{j1}\Delta x_{i1}).
+\end{equation}
+Therefore, the likelihood function can write as
+\begin{equation}
+(2\pi)^{\frac{-NT}{2}}|\Omega|^{\frac{-N}{2}}\exp \{-\frac{1}{2} \sum_{i=1}^{N}{\Delta u_{i}^{\ast'}\Omega^{-1}\Delta u_{i}^{\ast}} \} ,
+\end{equation}
+where
+\begin{equation}
+\Delta \boldsymbol{u}_{i}^{\ast}=[\Delta y_{i1}-b^{\ast}-\boldsymbol{\pi}^{\ast '} \Delta \boldsymbol{x}_{i}, \Delta y_{i2}-\gamma \Delta y_{i1}- \beta \Delta x_{i2},\ldots, \Delta y_{iT}-\gamma \Delta y_{i,T-1}-\beta \Delta x_{iT}]^{'}
+\end{equation}
+By minimizing $ \sum_{i=1}^{N}{\Delta \boldsymbol{u}_{i}^{\ast'}\Omega^{-1}\Delta \boldsymbol{u}_{i}^{\ast}}$
+, the MLE of ($\gamma,\beta$) is given by \\ \\
+\begin{equation}
+\begin{split}
+\binom{\hat{\gamma}}{\hat{\beta}}=&
+[(\sum_{i=1}^{N}{\tilde{G}_{i}^{'}\tilde{G}_{i}})
+-(\sum_{i=1}^{N}{\tilde{G}_{i}^{'} \boldsymbol{\tilde{x}}_{i}^{\ast}})(\sum_{i=1}^{N}{\boldsymbol{\tilde{x}}_{i}^{\ast'} \boldsymbol{\tilde{x}}_{i}^{\ast}})^{-1}(\sum_{i=1}^{N}{\boldsymbol{\tilde{x}}_{i}^{\ast'} \tilde{G}_{i}})]^{-1}
+\times \\
+&[(\sum_{i=1}^{N}{\tilde{G}_{i}^{'} \tilde{y}_{i}})-(\sum_{i=1}^{N}{\tilde{G}_{i}^{'} \boldsymbol{\tilde{x}}_{i}^{\ast}})(\sum_{i=1}^{N}{\boldsymbol{\tilde{x}}_{i}^{\ast'} \boldsymbol{\tilde{x}}_{i}^{\ast}})^{-1}(\sum_{i=1}^{N}{\boldsymbol{\tilde{x}}_{i}^{'} \boldsymbol{\tilde{y}}_{i}})].
+\end{split}
+\end{equation}
+
+
+
+
+
+\section{Transformed likelihood estimators}
+
+$\boldsymbol {\delta} =\binom{b^{\ast}}{\boldsymbol {\pi}} ,\, \boldsymbol {\theta} =\binom{\gamma}{\beta}, \,
+\boldsymbol {v_{i}}=\boldsymbol {P}\Delta \boldsymbol {u_{i}}^{\ast}= \Delta \tilde{\boldsymbol {y_{i}}} - \Delta \boldsymbol { \tilde{X_{i}}}^{\ast} \boldsymbol {\delta} -\tilde{\boldsymbol {G_{i}}} \boldsymbol {\theta} \,\,and\,\,
+\boldsymbol {\psi} (\boldsymbol {\delta} ,\, \boldsymbol {\theta}) =\sum_{i=1}^{N} \boldsymbol {v_{i}}^{'} \boldsymbol {v_{i}}. $\\
+Differentiate $\boldsymbol {\psi} (\boldsymbol {\delta} , \boldsymbol {\theta})$ with respect to $\boldsymbol{\theta}$ and equate to zero
+
+\begin{align}
+\frac{\partial \boldsymbol {\psi} (\boldsymbol {\delta} , \boldsymbol {\theta})}{\partial  \boldsymbol{\theta}} =-2\sum_{i=1}^{N} \boldsymbol{\tilde{G_{i}}}^{'}(\Delta \boldsymbol {\tilde{\boldsymbol{y_{i}}}} - \Delta \tilde{\boldsymbol{X_{i}}}^{\ast} \boldsymbol {\delta} -\tilde{ \boldsymbol{G_{i}}} \boldsymbol {\theta})=0.
+\end{align}
+
+\begin{align}
+(\sum_{i=1}^{N} \boldsymbol{\tilde{G_{i}}}^{'}\boldsymbol{\tilde{G_{i}}})\hat{\boldsymbol {\theta}} =\sum_{i=1}^{N} \boldsymbol{\tilde{G_{i}}}^{'}(\Delta \boldsymbol {\tilde{\boldsymbol{y_{i}}}} - \Delta \tilde{\boldsymbol{X_{i}}}^{\ast} \hat{\boldsymbol {\delta}}),
+\end{align}
+
+then we get
+\begin{align}
+\hat{\boldsymbol{\theta}}=
+(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})^{-1}(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{y_{i}}}-  \sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}} \hat{\boldsymbol{\delta}}). \label{82}
+\end{align}
+
+Differentiate $\boldsymbol {\psi} (\boldsymbol {\delta} , \boldsymbol {\theta})$ with respect to $\boldsymbol{\delta}$ and equate to zero
+\begin{align}
+\frac{\partial \boldsymbol {\psi} (\boldsymbol {\delta} , \boldsymbol {\theta})}{\partial \boldsymbol{\delta}} = -2\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} (\Delta \tilde{\boldsymbol{y_{i}}} - \Delta \tilde{\boldsymbol{X_{i}}}^{\ast} \boldsymbol{\delta} -\tilde{\boldsymbol{G_{i}}} \boldsymbol{\theta}) =0.
+\end{align}
+
+\begin{align}
+(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}) \hat{\boldsymbol{\delta}} = \sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast }}^{'}( \Delta \tilde{\boldsymbol{y_{i}}} - \tilde{\boldsymbol{G_{i}}} \hat{\boldsymbol{\theta}} ), \label{84}
+\end{align}
+then we get
+\begin{align}
+\hat{\boldsymbol{\delta}} =  (\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})^{-1}
+(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{y_{i}}} - \sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}} \hat{\boldsymbol{\theta}} ). \label{85}
+\end{align}
+
+
+Substitute (\ref{82}) to (\ref{84}), then
+\begin{equation}
+\begin{split}
+&(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}) \hat{\boldsymbol{\delta}}= \\
+&[(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{y_{i}}})-(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}}) (\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})^{-1}(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{y_{i}}}-  \sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}} \hat{\boldsymbol{\delta}}) ]
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\Rightarrow
+[(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})+(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}})(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})^{-1} (\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})] \hat{\boldsymbol{\delta}}= \\
+[(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{y_{i}}})-(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}}) (\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})^{-1}(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{y_{i}}})].
+\end{split}
+\end{equation}
+
+
+\begin{equation}
+\begin{split}
+\Rightarrow
+\hat{\boldsymbol{\delta}}= [(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})+(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}})(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})^{-1} (\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})]^{-1}\times \\
+[(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast }}^{'} \Delta \tilde{\boldsymbol{y_{i}}})-(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}}) (\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})^{-1}(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{y_{i}}})].
+\end{split}
+\end{equation}
+
+
+
+Substitute (\ref{85}) to (\ref{82}), then
+
+\begin{equation}
+\begin{split}
+&\hat{\boldsymbol{\theta}}=
+(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})^{-1} \times \\
+&[(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{y_{i}}})-  (\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}) (\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})^{-1}
+ (\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast }}^{'} \Delta \tilde{\boldsymbol{y_{i}}} - \sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}} \hat{\boldsymbol{\theta}})]
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\Rightarrow
+[(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})-(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}) (\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})^{-1}(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}}) ]\hat{\boldsymbol{\theta}}= \\
+[(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{y_{i}}})-(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}) (\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})^{-1}(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast '}} \Delta \tilde{\boldsymbol{y_{i}}})]
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\Rightarrow
+\hat{\boldsymbol{\theta}}=[(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \tilde{\boldsymbol{G_{i}}})-(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}) (\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})^{-1}(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \tilde{\boldsymbol{G_{i}}}) ]^{-1} \times \\
+[(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{y_{i}}})-(\sum_{i=1}^{N} \tilde{\boldsymbol{G_{i}}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}) (\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}}^{'} \Delta \tilde{\boldsymbol{X_{i}}^{\ast}})^{-1}(\sum_{i=1}^{N} \Delta \tilde{\boldsymbol{X_{i}}^{\ast }}^{'} \Delta \tilde{\boldsymbol{y_{i}}})].
+\end{split}
+\end{equation}
+
+
+
+
+
+
+\section{Derivatives first- and second-order derivatives of log-likelihood function}
+
+Likelihood function: $(2 \pi)^{-\frac{NT}{2}}|\boldsymbol{\Omega}|^{-\frac{N}{2}}\exp \{-\frac{1}{2} \sum_{i=1}^{N} \Delta \boldsymbol{u_{i}}^{*} (\boldsymbol{\Omega})^{-1} \Delta \boldsymbol{u_{i}}^{*} \}$, where \\
+$ \Delta \boldsymbol{u}^{*}_{i}=[\Delta y_{i1}-b^{*}-\boldsymbol{\pi}^{*'}\Delta \boldsymbol{X_{i}},
+ \Delta y_{i2}-\gamma \Delta y_{i1}-\beta \Delta x_{i2},..., \Delta y_{iT}-\gamma \Delta y_{iT-1}-\beta \Delta x_{iT} ]^{'} $ and
+ \begin{align*}
+   \boldsymbol{\Omega}= \sigma^{2}_{u}
+\begin{bmatrix}
+ \omega & -1     & 0      &   \cdots   & 0  \\
+ -1     & 2      & -1     &    \cdots  &  0   \\
+  0     & -1     &  2     &     \cdots &  0   \\
+\vdots  & \vdots & \vdots & \ddots     & -1 \\
+0       &  0     & 0      & -1         & 2
+\end{bmatrix}
+=\sigma^{2}_{u}  \boldsymbol{\Omega}^{*}.
+\end{align*}
+
+
+Let $\boldsymbol{\varphi} =(b^{*}, \boldsymbol{\pi^{'}}, \gamma , \beta)^{'}$, and
+
+
+
+
+\begin{align*}
+\Delta \boldsymbol{\tilde{W_{i}}}=
+\begin{bmatrix}
+1 & \Delta x^{'}_{i} & 0 & 0 \\
+0 & 0 & \Delta y_{i1} & \Delta x_{i2} \\
+0 & 0 & \Delta y_{i2} & \Delta x_{i2} \\
+ \vdots & \vdots & \vdots & \vdots    \\
+0 & 0 & \Delta y_{i,T-1} &  \Delta x_{iT},
+\end{bmatrix}.
+\end{align*}
+
+$(\boldsymbol{\Omega^{*}})^{-1} = \frac{adj( \boldsymbol{\Omega^{*}})}{| \boldsymbol{\Omega^{*}}|}$ and we know  $| \boldsymbol{\Omega^{*}}|=1+T(\omega-1)$,
+
+\begin{align*}
+adj( \boldsymbol{\Omega^{*}})&=
+\begin{bmatrix}
+   (1)    &   (2)   &   \cdots  & (3)    &  (4)  \\
+   (5)    & (6)     &  \cdots   &  (7)   &  (8)   \\
+   \vdots &  \vdots &  \vdots   & \vdots & \vdots \\
+   (9)    & (10)    &   \cdots  & (11)   & (12)   \\
+  (13)    & (14)    &  \cdots   & (15)   & (16)
+\end{bmatrix},
+\end{align*}
+
+For (1):
+\begin{align*}
+& \begin{vmatrix}
+2 & -1 \\
+-1 & 2
+\end{vmatrix}
+_{2\times 2}
+=3, \\
+& \begin{vmatrix}
+ -2 & -1 & 0  \\
+  -1 & 2 & -1  \\
+  0  & -1 & 2
+\end{vmatrix}
+_{3\times 3}
+=4, \cdots ,\\
+& \begin{vmatrix}
+2      & -1     &    \cdots  &  0   \\
+ -1     &  2     &     \cdots &  0   \\
+\vdots & \vdots & \ddots     & -1 \\
+ 0     & 0      & -1         & 2
+\end{vmatrix}
+_{(T-1)\times (T-1)}
+=T .\\
+\end{align*}
+
+For (2) and (5):
+\begin{align*}
+(-1)
+\begin{vmatrix}
+ -1     & -1      & 0      & \cdots    &0 \\
+ 0     & 2      & -1     &   \cdots  & 0 \\
+  0     & -1     & 2      &  \vdots   &  0\\
+ \vdots & \vdots & \vdots &   \vdots  & \vdots\\
+   0    &  0     &   0    &   \cdots  &2
+\end{vmatrix}
+_{(T-1)\times (T-1)}.
+=
+\begin{vmatrix}
+2      & -1     &   \cdots  & 0 \\
+ -1    & 2      &  \vdots   &  0\\
+\vdots & \vdots &   \vdots  & \vdots\\
+ 0     &   0    &   \cdots  &2
+\end{vmatrix}
+_{(T-2)(T-2)}=T-1.
+\end{align*}
+
+For (3) and (9)
+\begin{align*}
+& (-1)^{(T-1)+1}
+\begin{vmatrix}
+-1      & 0      & 0     & \cdots & 0 \\
+ 2      & -1     &0      & \cdots & 0 \\
+ -1      & 2      &-1      & \cdots & 0 \\
+ \vdots & \vdots & \vdots & \cdots & 0 \\
+0       & 0      & 0      & \cdots & 2
+\end{vmatrix}
+_{(T-1) \times (T-1)}
+=(-1)^{(T+1)}
+\begin{vmatrix}
+-1      & 0      & 0       & \cdots & 0 \\
+2       &-1      &   0     & \cdots & 0 \\
+ \vdots & \vdots &  \vdots & \cdots & 0\\
+ 0      & 0      &  0      &\cdots & 2
+\end{vmatrix}
+_{(T-2) \times (T-2)}
+=  \\ &
+(-1)^{(T-(T-1))}
+\begin{vmatrix}
+-1 & 0  \\
+-1 &  2
+\end{vmatrix}
+= 2.
+\end{align*}
+
+
+For (4) and (13)
+\begin{align*}
+\begin{vmatrix}
+-1      & 2      & -1      &     \cdots    &0 \\
+   0    & -1     & 2      &     \cdots    &0 \\
+    0   & 0      & -1       &    \cdots     & 0 \\
+ \vdots & \vdots & \vdots  & \vdots  & \vdots\\
+    0   &  0     &  \cdots & 0     & -1
+\end{vmatrix}=
+...=
+\begin{vmatrix}
+-1 & 2 \\
+0 & -1
+\end{vmatrix}
+=1.
+\end{align*}
+
+
+For (6)
+\begin{align*}
+& \begin{vmatrix}
+\omega & 0    & 0       &     \cdots    &0 \\
+   0  & 2      & -1      &     \cdots    &0 \\
+    0   & -1     & 2       &    \cdots     & 0 \\
+ \vdots & \vdots & \vdots  & \vdots  & \vdots\\
+    0   &  0     &  \cdots & -1      & 2
+\end{vmatrix}
+_{(T-1) \times (T-1)} =
+(-1)^{(1+1)}\omega
+\begin{vmatrix}
+ 2     & -1     & \cdots & 0 \\
+ -1    & 2      & \cdots &   0 \\
+  0    & -1     & \cdots & 0 \\
+\vdots & \vdots & \cdots & \vdots \\
+   0   & 0      & \cdots & 2
+\end{vmatrix}
+_{(T-2) \times (T-2)}= \\
+& \omega (T-1).
+\end{align*}
+
+For (7) and (10)
+\begin{align*}
+& (-1)^{T}
+\begin{vmatrix}
+\omega  & 0     & 0      & \cdots & 0 \\
+-1       & -1     & 0     & \cdots & 0 \\
+0       & 2      & -1     & \cdots & 0 \\
+\vdots  & \vdots & \vdots & \vdots & \vdots \\
+0       &  0     & 0      & \cdots & 2
+\end{vmatrix}
+_{(T-1) \times (T-1)}
+=
+\omega
+\begin{vmatrix}
+ -1 & 0 & \cdots & 0 \\
+ 2 & -1 & \cdots & 0 \\
+ \vdots & \vdots & \vdots & \vdots \\
+ 0 & 0 & \cdots & 2
+\end{vmatrix}
+_{(T-2) \times (T-2)}= \\ &
+(-1)^{T-(T+1)} \omega
+\begin{vmatrix}
+-1& 0 \\
+-1 & 2
+\end{vmatrix}
+=2 \omega.
+\end{align*}
+For  (8) and (14)
+\begin{align*}
+& \begin{vmatrix}
+\omega  & 0     & 0      & \cdots & 0 \\
+-1      & -1     & 0      & \cdots & 0 \\
+0       & 2      &  -1    & \cdots & 0 \\
+\vdots  & \vdots & \vdots & \vdots & \vdots \\
+0       & 0      & 0      & \cdots & -1
+\end{vmatrix}
+_{(T-1) \times (T-1)} =
+\omega
+\begin{vmatrix}
+ -1 & 0 & \cdots & 0 \\
+ 2 & -1 & \cdots & 0 \\
+ \vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \cdots & -1
+\end{vmatrix}
+_{(T-2) \times (T-2)}
+=  \\
+& \omega
+\begin{vmatrix}
+-1 & 2  \\
+0 & -1
+\end{vmatrix}
+_{2 \times 2}
+=\omega.
+\end{align*}
+
+For (11)
+\begin{align*}
+&\begin{vmatrix}
+ \omega & -1     & 0      & 0      & \cdots  & 0 & 0\\
+  -1    & 2      & -1     & 0      & \cdots  & 0 & 0\\
+   0    & -1     & 2      & -1     &  \cdots & 0 &0 \\
+\vdots  & \vdots & \vdots & \vdots & \vdots  & \vdots & \vdots \\
+ 0      & 0      & 0      & 0      & \cdots  & 2 &  0\\
+ 0      & 0      & 0      & 0      &  \cdots & 0 & 2
+\end{vmatrix}
+_{(T-1) \times (T-1)}
+= 2^{2(T-1)}
+\begin{vmatrix}
+ \omega & -1     & 0      & 0      & \cdots  & 0 \\
+  -1    & 2      & -1     & 0      & \cdots  & 0 \\
+   0    & -1     & 2      & -1     &  \cdots & 0  \\
+\vdots  & \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+ 0      & 0      & 0      & 0      & \cdots  & 2 \\
+\end{vmatrix}
+_{(T-2) \times (T-2)}
+=  \\
+& 2[ \omega
+\begin{vmatrix}
+ 2      & -1     & 0      & \cdots  & 0  \\
+ -1     & 2      & -1     &  \cdots &  0 \\
+ \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+ 0      & 0      & 0      & \cdots  & 2
+\end{vmatrix}
+_{(t-3) \times (T-3)} +(-1)^{3}
+\begin{vmatrix}
+-1     & 0      & 0      & \cdots  & 0  \\
+-1     & 2      & -1     &  \cdots &  0 \\
+ \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+  0      & 0      & 0      & \cdots  & 2
+\end{vmatrix}
+_{(T-3) \times (T-3)}]
+= \\
+& 2[ (T-2)\omega -
+\begin{vmatrix}
+2      & -1     & 0      & \cdots  & 0  \\
+ -1     & 2      & -1     &  \cdots &  0 \\
+ \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+ 0      & 0      & 0      & \cdots  & 2
+\end{vmatrix}
+_{(T-4) \times (T-4)}]
+= 2[ (T-2)\omega - (T-3)].
+\end{align*}
+
+
+For (12) and (15)
+\begin{align*}
+& \begin{vmatrix}
+ \omega & -1     & 0      & 0      & \cdots  & 0 & 0\\
+  -1    & 2      & -1     & 0      & \cdots  & 0 & 0\\
+   0    & -1     & 2      & -1     &  \cdots & 0 &0 \\
+\vdots  & \vdots & \vdots & \vdots & \vdots  & \vdots & \vdots \\
+ 0      & 0      & 0      & 0      & \cdots  & 2 &  0\\
+ 0      & 0      & 0      & 0      &  \cdots & -1 & -1
+\end{vmatrix}
+_{(T-1) \times (T-1)}
+=   (-1)^{2}
+\begin{vmatrix}
+ \omega & -1     & 0      & 0      & \cdots  & 0  \\
+  -1    & 2      & -1     & 0      & \cdots  & 0  \\
+   0    & -1     & 2      & -1     &  \cdots &  0 \\
+\vdots  & \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+ 0      & 0      & 0      & 0      & \cdots  & 2
+\end{vmatrix}
+_{(T-2) \times (T-2)}
+=  \\
+& \omega
+\begin{vmatrix}
+ 2      & -1     & 0      & \cdots  & 0  \\
+ -1     & 2      & -1     &  \cdots &  0 \\
+ \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+ 0      & 0      & 0      & \cdots  & 2
+\end{vmatrix}
+_{(t-3) \times (T-3)} +(-1)^{3}
+\begin{vmatrix}
+-1     & 0      & 0      & \cdots  & 0  \\
+-1     & 2      & -1     &  \cdots &  0 \\
+ \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+  0      & 0      & 0      & \cdots  & 2
+\end{vmatrix}
+_{(T-3) \times (T-3)}
+= \\
+& (T-2)\omega -
+\begin{vmatrix}
+2      & -1     & 0      & \cdots  & 0  \\
+ -1     & 2      & -1     &  \cdots &  0 \\
+ \vdots & \vdots & \vdots & \vdots  & \vdots  \\
+ 0      & 0      & 0      & \cdots  & 2
+\end{vmatrix}
+_{(T-4) \times (T-4)}
+=  (T-2)\omega - (T-3).
+\end{align*}
+For (16)
+\begin{align*}
+& \begin{vmatrix}
+ \omega & -1     & 0       &     \cdots    &0 \\
+   -1   & 2      & -1      &     \cdots    &0 \\
+    0   & -1     & 2       &    \cdots     & 0 \\
+ \vdots & \vdots & \vdots  & \vdots  & \vdots\\
+    0   &  0     &  \ldots & -1      & 2
+\end{vmatrix}
+_{(T-1)\times (T-1)}
+= \\
+& \omega
+\begin{vmatrix}
+ 2     & -1     & \cdots & 0 \\
+ -1    & 2      & \cdots &   0 \\
+  0    & -1     & \cdots & 0 \\
+\vdots & \vdots & \cdots & \vdots \\
+   0   & 0      & \cdots & 2
+\end{vmatrix}
+_{(T-2) \times (T-2)}+(-1)^{(2+1)}(-1)
+\begin{vmatrix}
+ -1    &   -1   & 0 & \cdots & 0 \\
+ 0     &   2    & -1 & \cdots & 0\\
+ 0     &   -1   & 2& \cdots & 0\\
+\vdots & \vdots & \vdots & \vdots &\vdots  \\
+ 0     & 0      & 0 & \cdots & 2
+\end{vmatrix}
+_{(T-2) \times (T-2)}
+= \\
+& (T-1)\omega-
+\begin{vmatrix}
+  2    & -1 & \cdots & 0\\
+  -1   & 2& \cdots & 0\\
+\vdots & \vdots & \vdots &\vdots  \\
+ 0      & 0 & \cdots & 2
+\end{vmatrix}
+_{(T-3) \times (T-3)}
+=(T-1) \omega-(T-2).
+\end{align*}
+
+
+Then we can see that
+\begin{align*}
+(\Omega^{*})^{-1}=[1+T(\omega-1)]^{-1} \times \\
+\begin{bmatrix}
+   T    &   (T-1)   &   \cdots  & 2    &  1  \\
+   (T-1)    & (T-1)\omega     &  \cdots   &  2 \omega   &  \omega    \\
+   \vdots &  \vdots &  \vdots   & \vdots & \vdots \\
+   2    & 2 \omega     &  \cdots  & 2[(T-2)\omega -(T-3)]   & (T-2)\omega -(T-3)   \\
+  1    & \omega     &  \cdots  & (T-2)\omega -(T-3)   & (T-1)\omega -(T-2)
+\end{bmatrix}
+\end{align*}
+\newpage
+
+\textbf{log-likelihood function:} \\
+\begin{align*}
+\ln L & = -\frac{NT}{2} \ln (2\pi)-\frac{N}{2} \ln| \boldsymbol{\Omega}|-\frac{1}{2}\sum_{i=1}^{N}[(\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})^{'}  \boldsymbol{\Omega}^{-1} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})] \\
+&= -\frac{NT}{2} \ln (2\pi)- \frac{NT}{2}\ln (\sigma^{2}_{u}) -\frac{N}{2} \ln[1+T(\omega-1)]- \\
+&\frac{1}{2} \sum_{i=1}^{N}[(\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})^{'}  \boldsymbol{\Omega}^{-1} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})].
+\end{align*}
+\\ \\
+Differentiate log-likelihood function with respect to $\boldsymbol{\varphi}$ and equate to zero
+\begin{align*}
+&\frac{\partial \ln L}{\partial \boldsymbol{\varphi}}=-\frac{1}{2}\times (-2)  \sum_{i=1}^{N} \Delta \boldsymbol{\tilde{W_{i}}}^{'}  (\boldsymbol{\hat{\Omega}})^{-1} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})]=0 \\
+&\Rightarrow  \sum_{i=1}^{N}(\Delta \boldsymbol{\tilde{W_{i}}} (\boldsymbol{\hat{\Omega}})^{-1} \Delta \boldsymbol{y_{i}})= \sum_{i=1}^{N}(\Delta \boldsymbol{\tilde{W_{i}^{'}}} (\boldsymbol{\hat{\Omega}})^{-1} \Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}}) \\
+& \Rightarrow  \boldsymbol{\hat{\varphi}}=(\sum_{i=1}^{N}\Delta \boldsymbol{\tilde{W_{i}^{'}}} (\boldsymbol{\hat{\Omega}^{*}})^{-1} \Delta \boldsymbol{\tilde{W_{i}}})^{-1}(\sum_{i=1}^{N}\Delta \boldsymbol{\tilde{W_{i}}} (\boldsymbol{\hat{\Omega}^{*}})^{-1} \Delta \boldsymbol{y_{i}}),
+\end{align*}
+where, $(\boldsymbol{\hat{\Omega}})^{-1}=\frac{1}{\sigma^{2}_{u}}(\boldsymbol{\hat{\Omega}^{*}})^{-1}$.
+
+
+Differentiate log-likelihood function with respect to $\sigma^{2}_{u}$ and equate to zero
+\begin{align*}
+\frac{\partial \ln L}{\partial \sigma^{2}_{u}}&=-\frac{NT}{2\hat{\sigma}^{2}_{u}}-(-1)\frac{1}{2(\hat{\sigma}^{2}_{u})^{2}}
+\sum_{i=1}^{N}[\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})^{'}  (\boldsymbol{\hat{\Omega}^{*}})^{-1} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})]=0 \\
+\Rightarrow
+\hat{\sigma}^{2}_{u}&=\frac{1}{NT} \sum_{i=1}^{N}[\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})^{'}  (\boldsymbol{\hat{\Omega}^{*}})^{-1} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})].
+\end{align*}
+
+Differentiate log-likelihood function with respect to $\omega$ and equate to zero
+
+By   $\frac{\partial \frac{A(x)}{B(x)}}{\partial x}= \frac{B(x)\frac{\partial A(x)}{\partial x}-\frac{B(x)}{\partial x}A(x)}{(B(x))^{2}}$,
+
+
+\begin{align*}
+&\frac{\partial \ln L}{\partial \omega}=-\frac{NT}{2[1+T(\hat{\omega}-1)]}-\frac{1}{2 \sigma^{2}_{u}[1+T(\hat{\omega}-1)]^{2}}
+\frac{1}{NT} \sum_{i=1}^{N}[\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})^{'}  \boldsymbol{\Phi} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})]=0 \\
+&\Rightarrow 1+T(\hat{\omega}-1)=\frac{1}{NT} \sum_{i=1}^{N}[\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})^{'}  \boldsymbol{\Phi} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})] \\
+&\Rightarrow \hat{\omega}=\frac{T-1}{T} + \frac{1}{NT^{2}} \sum_{i=1}^{N}[\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})^{'}  \boldsymbol{\Phi} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\hat{\varphi}})],
+\end{align*}
+
+
+
+
+where \\
+
+
+
+\begin{align*}
+\boldsymbol{\Phi} & =[1+T(\omega-1)]
+\begin{bmatrix}
+ 0  & 0 & \ldots & 0 & 0    \\
+ 0 & (T-1) & \ldots & 2 &    1 \\
+  \vdots & \vdots & \vdots & \vdots & \vdots    \\
+ 0  & 2 & \cdots & 2(T-2) &  (T-2)   \\
+ 0   & 1 & \cdots & (T-2) & (T-1)
+\end{bmatrix} \\
+& -T
+\begin{bmatrix}
+ T & (T-1) &  & 2 & 1   \\
+ (T-1) & (T-1)\omega &  & 2\omega &  \omega  \\
+  \vdots & \vdots & \vdots & \vdots &  \vdots  \\
+   2 & 2\omega  & \cdots & 2[(T-2)\omega-(T-3)] &  (T-2)\omega-(T-3)  \\
+   1 & \omega  & \cdots & (T-2)\omega-(T-3) &  (T-1)\omega-(T-2)  \\
+\end{bmatrix} \\
+& =
+\begin{bmatrix}
+  -T^{2}    & -T(T-1)    & \cdots & -2T    &  -T) \\
+  -T(T-1)    & -(T-1)^{2}    & \cdots & -2(T-1)    & -(T-1) \\
+ \vdots  & \vdots & \vdots & \vdots & \vdots \\
+ -2T     & -2(T-1)   &  \ldots   & -4  & -2 \\
+ -T    & -(T-1)   &    \ldots    & -2  & -1
+\end{bmatrix}
+\\ & =
+ -
+\begin{bmatrix}
+  T^{2}    & T(T-1)    & \cdots & 2T    &  T) \\
+  T(T-1)    & (T-1)^{2}    & \cdots & 2(T-1)    & (T-1) \\
+ \vdots  & \vdots & \vdots & \vdots & \vdots \\
+ 2T     & 2(T-1)   &  \ldots   & 4  & 2 \\
+ T    & (T-1)   &    \ldots    & 2  & 1
+\end{bmatrix}.
+\end{align*}
+
+\textrm{\textbf{Second order differential}}:
+
+\begin{align*}
+\frac{\partial^{2} \ln L}{\partial \boldsymbol{\varphi} \partial \boldsymbol{\varphi}^{'}}&= - \sum_{i=1}^{N} \Delta \boldsymbol{\tilde{W_{i}}}^{'} \boldsymbol{\Omega}^{-1} \boldsymbol{\tilde{W_{i}}} =
+-\frac{1}{\sigma^{2}_{u}} \sum_{i=1}^{N} \Delta \boldsymbol{\tilde{W_{i}}}^{'} (\boldsymbol{\Omega^{*}})^{-1} \boldsymbol{\tilde{W_{i}}}.
+ \\
+\frac{\partial^{2} \ln L}{\partial \boldsymbol{\varphi} \partial \sigma^{2}_{u}}&= -\frac{1}{\sigma^{4}_{u}} \sum_{i=1}^{N}[\Delta \boldsymbol{\tilde{W_{i}}} (\boldsymbol{\Omega^{*}})^{-1}(\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})]. \\
+\frac{\partial^{2} \ln L}{\partial \boldsymbol{\varphi} \partial \omega}&=-\frac{1}{\sigma^{2}_{u}[1+T(\omega-1)]^{2}} \sum_{i=1}^{N}[\Delta \boldsymbol{\tilde{W_{i}}^{'}} \boldsymbol{\Phi}(\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})]. \\
+\frac{\partial^{2} \ln L}{\partial \omega^{2}} &=-(-1)\frac{NT}{2[1+T(\omega-1)]^{2}}+ \\
+&\frac{1}{2}(-2)\frac{T}{\sigma^{2}_{u}[1+T(\omega-1)]^{3}} \sum_{i=1}^{N}[\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})^{'}  (\boldsymbol{\Phi}) (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})] .\\
+\frac{\partial^{2} \ln L}{\partial (\sigma^{2})^{2}} &=-(-1)\frac{NT}{2\sigma^{4}_{u}}+\frac{-2}{2\sigma^{6}} \sum_{i=1}^{N}[\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})^{'}  (\boldsymbol{\Omega^{*}})^{-1} (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})]. \\
+\frac{\partial^{2} \ln L}{\partial \omega \partial \sigma^{2}_{u}} &=(-1)\frac{1}{2\sigma^{4}_{u}[1+T(\omega-1)]^{2}} \sum_{i=1}^{N}[(\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})^{'}  (\boldsymbol{\Phi}) (\Delta \boldsymbol{y_{i}}-\Delta \boldsymbol{\tilde{W_{i}}} \boldsymbol{\varphi})].
+\end{align*}
+
+\section{Consistency of the FEQMLE} \label{F}
+To show the consistency of the FEML estimator, we can decompose $\tilde{\Delta}\boldsymbol{y}_{i,-1}$ as
+\begin{align}
+\tilde{\Delta}\boldsymbol{y}_{i,-1}=\boldsymbol{R}\boldsymbol{e}_{i}=\boldsymbol{R}\boldsymbol{\iota}\left( \gamma-1 \right)v_{i,1}+\boldsymbol{R}\boldsymbol{u}_{i},
+\end{align}
+where
+\begin{align}
+\boldsymbol{R}=
+\begin{bmatrix}
+0      & .      & .&  &0 & 0\\
+1      & 0      &  &  &0 & 0 \\
+\gamma & 1      &0 &  &  &0 \\
+.       & \gamma &1 & 0 & &    \\
+     &   &  \gamma & 1 & 0  &. \\
+\gamma^{T-3} & . & . & \gamma &1 & 0
+\end{bmatrix}.
+\end{align}
+Then we can rewrite $\tilde{\Delta}\boldsymbol{y}_{i}-\gamma \tilde{\Delta}\boldsymbol{y}_{i,-1}$ by
+\begin{align}
+\begin{split}
+\tilde{\Delta}\boldsymbol{y}_{i}-\rho \tilde{\Delta}\boldsymbol{y}_{i,-1} &=\gamma \tilde{\Delta}\boldsymbol{y}_{i,-1}+\rho \tilde{\Delta}\boldsymbol{y}_{i,-1}+\boldsymbol{e}_{i} \\
+&=\left( \gamma-\rho \right)\boldsymbol{Re}_{i}+\boldsymbol{e}_{i} =\left[ \left( \gamma-\rho  \right)\boldsymbol{R}+\boldsymbol{I}  \right]\boldsymbol{e}_{i} \\
+&=\left[\left( \gamma-\rho  \right)\boldsymbol{R\iota}+\boldsymbol{\iota} \right] \left( \gamma-1 \right)v_{i1}+\left[\left(\gamma-\rho \right)\boldsymbol{P}+\boldsymbol{I} \right]\boldsymbol{u}_{i}. \\ \label{86}
+\end{split}
+\end{align}
+It can be seen equation (\ref{86}) that divided by N converges uniformly in probability. Given the specific setting of $\boldsymbol{F}^{-1}$ and $\boldsymbol{P}$, $(\tilde{\Delta}\boldsymbol{y}_{i}-\rho\tilde{\Delta}\boldsymbol{y}_{i,-1})^{'}\boldsymbol{F}^{-1}(\tilde{\Delta}\boldsymbol{y}_{i}-\rho\tilde{\Delta}\boldsymbol{y}_{i,-1})=\boldsymbol{\Phi}^{-1}$ if and only if $f=\varphi$ and $\gamma=\rho$.
+
+We can extend the model with addition regressors. If the regressors are strictly exogenous, FEQML estimator and REQML estimator are consistent. However, when regressors are weakly exogenous, FEQML estimator and REQML estimator are inconsistent. The reasons is that the moment conditions can not be satisfied because the correlation between regressors $x_{it}$ and error term $u_{it}$ is not zero.
+
+
+
+\nocite{*}
+
+\addcontentsline{toc}{section}{Reference}
+\renewcommand\refname{References}
+\bibliographystyle{chicago}
+\bibliography{1234}
+
+\end{document} 
